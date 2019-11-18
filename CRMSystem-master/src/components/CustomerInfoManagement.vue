@@ -18,9 +18,9 @@
       </el-col>
 
       <!-- 新建客户 -->
-      <el-col :span="2" :offset="1">
+      <!-- <el-col :span="2" :offset="1">
         <el-button type="primary" round @click="createNewCustomer()">新建客户</el-button>
-      </el-col>
+      </el-col> -->
     </el-row>
 
     <!-- 折叠面板 -->

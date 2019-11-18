@@ -28,9 +28,181 @@
       </el-col>
 
       <!-- 创建营销 -->
-      <el-col :span="2" :offset="1">
+      <!-- <el-col :span="2" :offset="1">
         <el-button type="primary" round @click="creatingMarketingOpportunity()">创建营销机会</el-button>
+      </el-col>-->
+      <el-col :span="2" :offset="1">
+        <el-button type="primary" round @click="createNewCustomer()">新建客户</el-button>
       </el-col>
+
+      <!-- "新建/修改客户"弹出框 -->
+      <el-dialog ref="create_new_customer_dialog" :visible.sync="createNewCustomerDialogVisible">
+        <el-form ref="customerInfoData" :model="customerInfoData" label-width="100px">
+          <!-- 表单第一行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="客户编号">
+                <el-input v-model="customerInfoData.number" :disabled="true" placeholder="自动分配"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="16">
+              <el-form-item label="客户名称">
+                <el-input v-model="customerInfoData.name"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 表单第二行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="地区">
+                <el-input v-model="customerInfoData.region"></el-input>
+              </el-form-item>
+            </el-col>
+            <!-- <el-col :span="8">
+              <el-form-item label="客户经理">
+                <el-input v-model="customerInfoData.manager"></el-input>
+              </el-form-item>
+            </el-col> -->
+
+            <el-col :span="8">
+              <el-form-item label="客户等级">
+                <el-select v-model="customerInfoData.level" style="width:100%">
+                  <el-option label="一级" value="一级"></el-option>
+                  <el-option label="二级" value="二级"></el-option>
+                  <el-option label="三级" value="三级"></el-option>
+                  <el-option label="四级" value="四级"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 表单第三行 -->
+          <el-row>
+            <!-- <el-col :span="8">
+              <el-form-item label="客户满意度">
+                <el-rate v-model="customerInfoData.satisfaction"></el-rate>
+              </el-form-item>
+            </el-col> -->
+
+            <el-col :span="8">
+              <el-form-item label="客户信用度">
+                <el-rate v-model="customerInfoData.credit"></el-rate>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-divider />
+
+          <!-- 表单第四行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="地址">
+                <el-input v-model="customerInfoData.address"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="联系人">
+                <el-input v-model="customerInfoData.postcode"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="电话">
+                <el-input v-model="customerInfoData.tel"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 表单第五行 -->
+          <!-- <el-row>
+            <el-col :span="8">
+              <el-form-item label="传真">
+                <el-input v-model="customerInfoData.faxes"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="16">
+              <el-form-item label="网址">
+                <el-input v-model="customerInfoData.url"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row> -->
+
+          <el-divider />
+
+          <!-- 表单第六行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="营业执照编号">
+                <el-input v-model="customerInfoData.licenseNumber"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="法人">
+                <el-input v-model="customerInfoData.legalPerson"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="注册资金">
+                <el-input v-model="customerInfoData.registeredFund" placeholder="（万元）"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 表单第七行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="年营业额">
+                <el-input v-model="customerInfoData.annualSales" placeholder="（万元）"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="地税登记号">
+                <el-input v-model="customerInfoData.localTaxNumber"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="8">
+              <el-form-item label="国税登记号">
+                <el-input v-model="customerInfoData.nationalTaxNumber"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 表单第六行 -->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="开户银行">
+                <el-input v-model="customerInfoData.bankName"></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="16">
+              <el-form-item label="银行账号">
+                <el-input v-model="customerInfoData.bankAccount"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <!-- 提交表单按钮 -->
+          <el-form-item>
+            <el-row>
+              <el-col :span="4" :offset="20">
+                <el-button
+                  type="primary"
+                  @click="submitCreateNewCustomerForm('customerInfoData')"
+                >确定提交</el-button>
+              </el-col>
+            </el-row>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
     </el-row>
 
     <el-row>
@@ -100,6 +272,8 @@
 
           <el-table-column property="uage" label="创建时间" align="center"></el-table-column>
 
+          <el-table-column property="uage" label="成交状态" align="center"></el-table-column>
+
           <el-table-column label="修改营销机会" align="center">
             <template>
               <el-button
@@ -122,7 +296,7 @@
           layout="total, sizes, prev, pager, next, jumper"
           :total="20"
           class="page"
-        ></el-pagination> -->
+        ></el-pagination>-->
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -136,49 +310,49 @@
     </el-row>
 
     <!-- “创建/修改营销”弹出框 -->
-    <el-dialog ref="create_marketing_opportunity_dialog" :visible.sync="dialogFormVisible">
+    <!-- <el-dialog ref="create_marketing_opportunity_dialog" :visible.sync="dialogFormVisible">
       <el-form
         :model="creatingMarketingOpportunityForm"
         :rules="rules"
         ref="creatingMarketingOpportunityForm"
         label-width="100px"
       >
-        <!-- 客户名称 -->
+        客户名称
         <el-form-item label="客户名称" prop="name">
           <el-input v-model="creatingMarketingOpportunityForm.name"></el-input>
         </el-form-item>
 
-        <!-- 机会来源 -->
+        机会来源
         <el-form-item label="机会来源" prop="source">
           <el-input v-model="creatingMarketingOpportunityForm.source"></el-input>
         </el-form-item>
 
-        <!-- 成功几率 -->
+        成功几率
         <el-form-item label="成功几率" prop="odds" placeholder="请填入0-100的百分值（%）">
           <el-input v-model.number="creatingMarketingOpportunityForm.odds"></el-input>
         </el-form-item>
 
-        <!-- 概要 -->
+        概要
         <el-form-item label="概要" prop="digest">
           <el-input v-model="creatingMarketingOpportunityForm.digest"></el-input>
         </el-form-item>
 
-        <!-- 联系人 -->
+        联系人
         <el-form-item label="联系人" prop="contacts">
           <el-input v-model="creatingMarketingOpportunityForm.contacts"></el-input>
         </el-form-item>
 
-        <!-- 联系人电话 -->
+        联系人电话
         <el-form-item label="联系人电话" prop="contactsTel">
           <el-input v-model.number="creatingMarketingOpportunityForm.contactsTel"></el-input>
         </el-form-item>
 
-        <!-- 机会描述 -->
+        机会描述
         <el-form-item label="机会描述" prop="opportunityStatement">
           <el-input type="textarea" v-model="creatingMarketingOpportunityForm.opportunityStatement"></el-input>
         </el-form-item>
 
-        <!-- 指派给 -->
+        指派给
         <el-form-item label="指派给" prop="designate">
           <el-select
             v-model="creatingMarketingOpportunityForm.designate"
@@ -193,7 +367,7 @@
           </el-select>
         </el-form-item>
 
-        <!-- 提交/重置表单按钮 -->
+        提交/重置表单按钮
         <el-form-item>
           <el-row>
             <el-col :span="4" :offset="15">
@@ -205,7 +379,7 @@
           </el-row>
         </el-form-item>
       </el-form>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -213,6 +387,33 @@
 export default {
   data() {
     return {
+      // “新建客户/修改客户信息”弹出框显示控制
+      createNewCustomerDialogVisible: false,
+      // 客户基本信息表单
+      customerInfoData: {
+        number: "",
+        name: "",
+        region: "",
+        manager: "",
+        level: "",
+        satisfaction: null,
+        credit: null,
+
+        address: "",
+        postcode: "",
+        tel: "",
+        faxes: "",
+        url: "",
+
+        licenseNumber: "",
+        legalPerson: "",
+        registeredFund: "",
+        annualSales: "",
+        localTaxNumber: "",
+        nationalTaxNumber: "",
+        bankName: "",
+        bankAccount: ""
+      },
       //分页数据
       currentPage: 4,
       //表格内容
@@ -327,6 +528,11 @@ export default {
   },
 
   methods: {
+    // “新建客户”点击事件
+    createNewCustomer() {
+      this.$refs.create_new_customer_dialog.title = "新建客户";
+      this.createNewCustomerDialogVisible = true;
+    },
     //分页功能的方法
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
