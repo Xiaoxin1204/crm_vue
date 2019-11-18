@@ -113,7 +113,7 @@
         </el-table>
 
         <!-- 分页导航条 -->
-        <el-pagination
+        <!-- <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -121,6 +121,15 @@
           :page-size="5"
           layout="total, sizes, prev, pager, next, jumper"
           :total="20"
+          class="page"
+        ></el-pagination> -->
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="7"
+          layout="total, prev, pager, next"
+          :total="61"
           class="page"
         ></el-pagination>
       </el-card>
