@@ -53,14 +53,14 @@
           </el-menu-item>
 
           <!-- 营销管理 -->
-          <el-submenu index="marketing_management">
+          <!-- <el-submenu index="marketing_management">
             <template slot="title">
               <i class="el-icon-s-platform"></i>
               <span>营销管理</span>
             </template>
             <el-menu-item index="/Home/MarketingOpportunityManagement">营销机会管理</el-menu-item>
             <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发计划</el-menu-item>
-          </el-submenu>
+          </el-submenu> -->
 
           <!-- 客户管理 -->
           <el-submenu index="customer_management">
@@ -70,6 +70,8 @@
             </template>
             <el-menu-item index="/Home/CustomerInfoManagement">客户信息管理</el-menu-item>
             <el-menu-item index="/Home/CustomerLoseManagement">客户流失管理</el-menu-item>
+            <el-menu-item index="/Home/MarketingOpportunityManagement">客户列表管理</el-menu-item>
+            <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发计划</el-menu-item>
           </el-submenu>
 
           <!-- 服务管理 -->

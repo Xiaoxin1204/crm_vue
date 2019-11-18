@@ -29,7 +29,7 @@
 
       <!-- 创建营销 -->
       <el-col :span="2" :offset="1">
-        <el-button type="primary" round @click="creatingMarketingOpportunity()" >创建营销机会</el-button>
+        <el-button type="primary" round @click="creatingMarketingOpportunity()">创建营销机会</el-button>
       </el-col>
     </el-row>
 
@@ -42,7 +42,7 @@
             <el-col :span="18">
               <div
                 style="font-size:20px; text-align:left; color:#000000; margin:10px 0px 0px 10px"
-              >营销机会列表</div>
+              >客户列表</div>
             </el-col>
 
             <el-col :span="2">
@@ -85,7 +85,7 @@
         >
           <el-table-column fixed="left" type="selection" width="55"></el-table-column>
 
-          <el-table-column type="index" label="序号"  align="center"></el-table-column>
+          <el-table-column type="index" label="序号" align="center"></el-table-column>
 
           <!-- 用于“客户开发计划”页面的主键 -->
           <el-table-column property="number" label="编号" align="center"></el-table-column>
@@ -101,12 +101,28 @@
           <el-table-column property="uage" label="创建时间" align="center"></el-table-column>
 
           <el-table-column label="修改营销机会" align="center">
-            <template >
-              <el-button @click="editMarketingOpportunity()" icon="el-icon-edit" circle size="small"></el-button>
+            <template>
+              <el-button
+                @click="editMarketingOpportunity()"
+                icon="el-icon-edit"
+                circle
+                size="small"
+              ></el-button>
             </template>
           </el-table-column>
-
         </el-table>
+
+        <!-- 分页导航条 -->
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+          class="page"
+        ></el-pagination>
       </el-card>
     </el-row>
 
@@ -191,7 +207,7 @@ export default {
       //表格内容
       marketingOpportunityListData: [
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -199,7 +215,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -207,7 +223,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -215,7 +231,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -223,7 +239,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -231,7 +247,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -239,7 +255,7 @@ export default {
           uage: "2019-10-1"
         },
         {
-          number:"234432523523",
+          number: "234432523523",
           name: "深圳迅雷科技有限公司",
           type: "科技/硬件/通讯",
           price: "李先生",
@@ -279,17 +295,15 @@ export default {
         ],
         odds: [
           { required: true, message: "请填写成功几率", trigger: "blur" },
-          { type: 'number', message: '几率值必须为数字(%)'}
+          { type: "number", message: "几率值必须为数字(%)" }
         ],
-        digest: [
-          { required: true, message: "请填写概要", trigger: "blur" }
-        ],
+        digest: [{ required: true, message: "请填写概要", trigger: "blur" }],
         contacts: [
           { required: true, message: "请填写联系人", trigger: "blur" }
         ],
         contactsTel: [
           { required: true, message: "请填写联系人电话", trigger: "blur" },
-          { length:11, type: 'number', message: '联系方式必须为11位数字'}
+          { length: 11, type: "number", message: "联系方式必须为11位数字" }
         ],
         opportunityStatement: [
           { required: true, message: "请填写机会描述", trigger: "blur" }
@@ -309,8 +323,8 @@ export default {
 
     // 创建销售机会
     creatingMarketingOpportunity() {
-        this.dialogFormVisible = true;
-        this.$refs.create_marketing_opportunity_dialog.title = "创建营销机会";
+      this.dialogFormVisible = true;
+      this.$refs.create_marketing_opportunity_dialog.title = "创建营销机会";
     },
 
     // 表格--------------------------------------------------------
@@ -335,9 +349,9 @@ export default {
 
     // 修改营销机会
     editMarketingOpportunity() {
-        console.log(this.currentRow);
-        this.dialogFormVisible = true;
-        this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
+      console.log(this.currentRow);
+      this.dialogFormVisible = true;
+      this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
     },
 
     // “创建营销”弹出框-------------------------------------------------
@@ -362,4 +376,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .page{
+    margin-top: 2%;
+  }
+</style>
 
