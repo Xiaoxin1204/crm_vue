@@ -116,11 +116,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"
+          :page-size="5"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="20"
           class="page"
         ></el-pagination>
       </el-card>
@@ -204,6 +204,8 @@
 export default {
   data() {
     return {
+      //分页数据
+      currentPage: 4,
       //表格内容
       marketingOpportunityListData: [
         {
@@ -316,6 +318,13 @@ export default {
   },
 
   methods: {
+    //分页功能的方法
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
     // 查询框-------------------------------------------------------
     selectByPrimaryKey(selectKey) {
       console.log(selectKey);
@@ -378,8 +387,8 @@ export default {
 </script>
 
 <style scoped>
-  .page{
-    margin-top: 2%;
-  }
+.page {
+  margin-top: 2%;
+}
 </style>
 
