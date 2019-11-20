@@ -68,9 +68,9 @@
               <i class="el-icon-s-custom"></i>
               <span>客户管理</span>
             </template>
+            <el-menu-item index="/Home/MarketingOpportunityManagement">客户列表管理</el-menu-item>
             <el-menu-item index="/Home/CustomerInfoManagement">客户信息管理</el-menu-item>
             <el-menu-item index="/Home/CustomerLoseManagement">客户流失管理</el-menu-item>
-            <el-menu-item index="/Home/MarketingOpportunityManagement">客户列表管理</el-menu-item>
             <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发计划</el-menu-item>
           </el-submenu>
 
