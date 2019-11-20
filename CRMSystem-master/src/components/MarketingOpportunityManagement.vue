@@ -264,7 +264,7 @@
 
           <el-table-column property="name" label="公司名称" align="center"></el-table-column>
 
-          <el-table-column property="type" label="概要" align="center"></el-table-column>
+          <el-table-column property="type" label="客户类型" align="center"></el-table-column>
 
           <el-table-column property="price" label="联系人" align="center"></el-table-column>
 
@@ -274,7 +274,7 @@
 
           <el-table-column property="uage" label="成交状态" align="center"></el-table-column>
 
-          <el-table-column label="修改营销机会" align="center">
+          <el-table-column label="查看客户详细信息" align="center">
             <template>
               <el-button
                 @click="editMarketingOpportunity()"
@@ -582,8 +582,9 @@ export default {
     // 修改营销机会
     editMarketingOpportunity() {
       console.log(this.currentRow);
-      this.dialogFormVisible = true;
-      this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
+      // this.dialogFormVisible = true;
+      // this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
+      this.$router.push(`/Home/CustomerInfoManagement`)
     },
 
     // “创建营销”弹出框-------------------------------------------------

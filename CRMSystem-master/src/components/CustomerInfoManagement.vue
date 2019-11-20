@@ -75,11 +75,11 @@
                       <el-input v-model="customerInfoData.region" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <!-- <el-col :span="8">
                     <el-form-item label="客户经理">
                       <el-input v-model="customerInfoData.manager" :disabled="true"></el-input>
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
 
                   <el-col :span="8">
                     <el-form-item label="客户等级">
@@ -99,11 +99,11 @@
 
                 <!-- 表单第三行 -->
                 <el-row>
-                  <el-col :span="8">
+                  <!-- <el-col :span="8">
                     <el-form-item label="客户满意度">
                       <el-rate v-model="customerInfoData.satisfaction" disabled></el-rate>
                     </el-form-item>
-                  </el-col>
+                  </el-col> -->
 
                   <el-col :span="8">
                     <el-form-item label="客户信用度">
@@ -123,7 +123,7 @@
                   </el-col>
 
                   <el-col :span="8">
-                    <el-form-item label="邮编">
+                    <el-form-item label="联系人">
                       <el-input v-model="customerInfoData.postcode" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
@@ -136,7 +136,7 @@
                 </el-row>
 
                 <!-- 表单第五行 -->
-                <el-row>
+                <!-- <el-row>
                   <el-col :span="8">
                     <el-form-item label="传真">
                       <el-input v-model="customerInfoData.faxes" :disabled="true"></el-input>
@@ -148,7 +148,7 @@
                       <el-input v-model="customerInfoData.url" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row>
+                </el-row> -->
 
                 <el-divider />
 
