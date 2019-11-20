@@ -64,7 +64,7 @@
               <el-form-item label="客户经理">
                 <el-input v-model="customerInfoData.manager"></el-input>
               </el-form-item>
-            </el-col> -->
+            </el-col>-->
 
             <el-col :span="8">
               <el-form-item label="客户等级">
@@ -84,7 +84,7 @@
               <el-form-item label="客户满意度">
                 <el-rate v-model="customerInfoData.satisfaction"></el-rate>
               </el-form-item>
-            </el-col> -->
+            </el-col>-->
 
             <el-col :span="8">
               <el-form-item label="客户信用度">
@@ -129,7 +129,7 @@
                 <el-input v-model="customerInfoData.url"></el-input>
               </el-form-item>
             </el-col>
-          </el-row> -->
+          </el-row>-->
 
           <el-divider />
 
@@ -252,27 +252,25 @@
           highlight-current-row
           stripe
           border
-          @current-change="handleCurrentChange"
           style="width: 100%"
         >
           <el-table-column fixed="left" type="selection" width="55"></el-table-column>
 
           <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-          <!-- 用于“客户开发计划”页面的主键 -->
-          <el-table-column property="number" label="编号" align="center"></el-table-column>
+          <el-table-column property="serialNumber" label="编号" align="center"></el-table-column>
 
-          <el-table-column property="name" label="公司名称" align="center"></el-table-column>
+          <el-table-column property="compName" label="公司名称" align="center"></el-table-column>
 
           <el-table-column property="type" label="客户类型" align="center"></el-table-column>
 
-          <el-table-column property="price" label="联系人" align="center"></el-table-column>
+          <el-table-column property="contactName" label="联系人" align="center"></el-table-column>
 
-          <el-table-column property="num" label="联系电话" align="center"></el-table-column>
+          <el-table-column property="tel" label="联系电话" align="center"></el-table-column>
 
-          <el-table-column property="uage" label="创建时间" align="center"></el-table-column>
+          <el-table-column property="createTime" label="创建时间" align="center"></el-table-column>
 
-          <el-table-column property="uage" label="成交状态" align="center"></el-table-column>
+          <el-table-column property="state" label="成交状态" align="center"></el-table-column>
 
           <el-table-column label="查看客户详细信息" align="center">
             <template>
@@ -287,16 +285,6 @@
         </el-table>
 
         <!-- 分页导航条 -->
-        <!-- <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[5, 10, 15, 20]"
-          :page-size="5"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="20"
-          class="page"
-        ></el-pagination>-->
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -379,17 +367,16 @@
           </el-row>
         </el-form-item>
       </el-form>
-    </el-dialog> -->
+    </el-dialog>-->
   </div>
 </template>
 
 <script>
-import testApi from '@/api/test'
+import testApi from "@/api/test";
 
 export default {
   data() {
     return {
-      list: [],
       // “新建客户/修改客户信息”弹出框显示控制
       createNewCustomerDialogVisible: false,
       // 客户基本信息表单
@@ -420,64 +407,7 @@ export default {
       //分页数据
       currentPage: 4,
       //表格内容
-      marketingOpportunityListData: [
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        },
-        {
-          number: "234432523523",
-          name: "深圳迅雷科技有限公司",
-          type: "科技/硬件/通讯",
-          price: "李先生",
-          num: "13122442424",
-          uage: "2019-10-1"
-        }
-      ],
+      marketingOpportunityListData: [],
       currentRow: "",
 
       // 查询类型
@@ -536,10 +466,8 @@ export default {
       this.$refs.create_new_customer_dialog.title = "新建客户";
       this.createNewCustomerDialogVisible = true;
       testApi.getList().then(response => {
-        console.log(response.data)
-        this.list = response.data
-        console.log(this.list)
-      })
+        console.log(response.data);
+      });
     },
     //分页功能的方法
     handleSizeChange(val) {
@@ -584,7 +512,7 @@ export default {
       console.log(this.currentRow);
       // this.dialogFormVisible = true;
       // this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
-      this.$router.push(`/Home/CustomerInfoManagement`)
+      this.$router.push(`/Home/CustomerInfoManagement`);
     },
 
     // “创建营销”弹出框-------------------------------------------------
@@ -606,6 +534,12 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  mounted() {
+    testApi.getList().then(response => {
+      this.marketingOpportunityListData = response.data.items;
+      console.log(this.marketingOpportunityListData);
+    });
   }
 };
 </script>
