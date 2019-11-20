@@ -14,7 +14,8 @@ Vue.prototype.$echarts = echarts
 Vue.use(ElementUI);
 
 
-Vue.config.productionTip = false;
+// Vue.config.productionTip = false;
+Vue.config.productionTip = process.env.NODE_ENV === 'production';//动态的显示，再开发环境就显示false，生产环境就显示true
 
 new Vue({
   router,

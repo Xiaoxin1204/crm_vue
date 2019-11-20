@@ -384,9 +384,12 @@
 </template>
 
 <script>
+import testApi from '@/api/test'
+
 export default {
   data() {
     return {
+      list: [],
       // “新建客户/修改客户信息”弹出框显示控制
       createNewCustomerDialogVisible: false,
       // 客户基本信息表单
@@ -532,6 +535,11 @@ export default {
     createNewCustomer() {
       this.$refs.create_new_customer_dialog.title = "新建客户";
       this.createNewCustomerDialogVisible = true;
+      testApi.getList().then(response => {
+        console.log(response.data)
+        this.list = response.data
+        console.log(this.list)
+      })
     },
     //分页功能的方法
     handleSizeChange(val) {
