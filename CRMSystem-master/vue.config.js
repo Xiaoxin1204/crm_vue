@@ -8,7 +8,7 @@ module.exports = {
         proxy: {//开发环境代理配置
             'dev-api': {
                 //目标服务器地址，代理访问
-                target: 'http://bigyue.top/customer',
+                target: 'http://bigyue.top',
                 //开启代理服务器
                 changeOrigin: true,
                 pathRewrite: {

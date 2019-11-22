@@ -788,6 +788,8 @@
 </template>
 
 <script>
+import PubSub from 'pubsub-js';
+
 export default {
   data() {
     return {
@@ -1020,7 +1022,11 @@ export default {
       }
     };
   },
-
+  created() {
+    PubSub.subscribe('details-data',function(event,data){
+      console.log(data)
+    })
+  },
   methods: {
     // 查询框-------------------------------------------------------
     selectByPrimaryKey(selectKey) {

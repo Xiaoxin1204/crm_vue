@@ -5,10 +5,10 @@ import request from '@/utils/request';
 // })
 
 export default {
-    getList() {
+    getList(page,rows) {
         const req = request({
             method: 'get',
-            url: '/dev-api/findCustomerByPage'
+            url: `/dev-api/customer/findCustomerByPage?page=${page}`
         })
         return req
     }

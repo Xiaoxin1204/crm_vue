@@ -291,7 +291,7 @@
           :current-page.sync="currentPage"
           :page-size="7"
           layout="total, prev, pager, next"
-          :total="61"
+          :total="total"
           class="page"
         ></el-pagination>
       </el-card>
@@ -372,7 +372,8 @@
 </template>
 
 <script>
-import testApi from "@/api/test";
+import customerApi from "@/api/customer";
+import PubSub from "pubsub-js";
 
 export default {
   data() {
@@ -405,8 +406,9 @@ export default {
         bankAccount: ""
       },
       //分页数据
-      currentPage: 4,
+      currentPage: 1,
       //表格内容
+      total: 0,
       marketingOpportunityListData: [],
       currentRow: "",
 
@@ -459,7 +461,6 @@ export default {
       }
     };
   },
-
   methods: {
     // “新建客户”点击事件
     createNewCustomer() {
@@ -512,6 +513,7 @@ export default {
       console.log(this.currentRow);
       // this.dialogFormVisible = true;
       // this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
+      PubSub.publish('details-data',{showTag:true})
       this.$router.push(`/Home/CustomerInfoManagement`);
     },
 
@@ -535,9 +537,19 @@ export default {
       this.$refs[formName].resetFields();
     }
   },
+  watch: {
+    currentPage: function(n, o) {
+      console.log("currentPage改变了" + n + o);
+      customerApi.getList(n).then(response => {
+        this.marketingOpportunityListData = response.data.items;
+        console.log(this.marketingOpportunityListData);
+      });
+    }
+  },
   mounted() {
-    testApi.getList().then(response => {
+    customerApi.getList(1).then(response => {
       this.marketingOpportunityListData = response.data.items;
+      this.total = response.data.total;
       console.log(this.marketingOpportunityListData);
     });
   }
