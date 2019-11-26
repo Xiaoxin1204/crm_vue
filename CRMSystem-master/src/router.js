@@ -61,7 +61,7 @@ export default new Router({
           component: CustomerDevelopmentPlan
         },
         {
-          path:"CustomerInfoManagement",
+          path:"CustomerInfoManagement/:id",
           name:"CustomerInfoManagement",
           component: CustomerInfoManagement
         },

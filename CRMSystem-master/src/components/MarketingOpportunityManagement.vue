@@ -57,7 +57,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="地区">
-                <el-input v-model="customerInfoData.region"></el-input>
+                <el-input v-model="customerInfoData.area"></el-input>
               </el-form-item>
             </el-col>
             <!-- <el-col :span="8">
@@ -143,13 +143,13 @@
 
             <el-col :span="8">
               <el-form-item label="法人">
-                <el-input v-model="customerInfoData.legalPerson"></el-input>
+                <el-input v-model="customerInfoData.corporation"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="注册资金">
-                <el-input v-model="customerInfoData.registeredFund" placeholder="（万元）"></el-input>
+                <el-input v-model="customerInfoData.registerMoney" placeholder="（万元）"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -158,13 +158,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="年营业额">
-                <el-input v-model="customerInfoData.annualSales" placeholder="（万元）"></el-input>
+                <el-input v-model="customerInfoData.annualSale" placeholder="（万元）"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="地税登记号">
-                <el-input v-model="customerInfoData.localTaxNumber"></el-input>
+                <el-input v-model="customerInfoData.landTaxNumber"></el-input>
               </el-form-item>
             </el-col>
 
@@ -179,7 +179,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="开户银行">
-                <el-input v-model="customerInfoData.bankName"></el-input>
+                <el-input v-model="customerInfoData.depositBank"></el-input>
               </el-form-item>
             </el-col>
 
@@ -273,9 +273,9 @@
           <el-table-column property="state" label="成交状态" align="center"></el-table-column>
 
           <el-table-column label="查看客户详细信息" align="center">
-            <template>
+            <template slot-scope="scope">
               <el-button
-                @click="editMarketingOpportunity()"
+                @click="editMarketingOpportunity(scope.row)"
                 icon="el-icon-edit"
                 circle
                 size="small"
@@ -509,12 +509,12 @@ export default {
     },
 
     // 修改营销机会
-    editMarketingOpportunity() {
-      console.log(this.currentRow);
+    editMarketingOpportunity(row) {
+      console.log(row);
       // this.dialogFormVisible = true;
       // this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
-      PubSub.publish('details-data',{showTag:true})
-      this.$router.push(`/Home/CustomerInfoManagement`);
+      // PubSub.publish('details-data',{showTag:true})
+      this.$router.push(`/Home/CustomerInfoManagement/`+row.id);
     },
 
     // “创建营销”弹出框-------------------------------------------------

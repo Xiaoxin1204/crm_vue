@@ -11,5 +11,15 @@ export default {
             url: `/dev-api/customer/findCustomerByPage?page=${page}`
         })
         return req
-    }
+    },
+
+    getListById(customerId) {
+        const req = request({
+            method: 'get',
+            url: `/dev-api/customer/findCustomerById?customerId=${customerId}`
+        })
+        return req
+    },
+
+    
 }

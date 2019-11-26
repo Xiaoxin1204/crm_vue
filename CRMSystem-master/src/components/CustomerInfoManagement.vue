@@ -20,7 +20,7 @@
       <!-- 新建客户 -->
       <!-- <el-col :span="2" :offset="1">
         <el-button type="primary" round @click="createNewCustomer()">新建客户</el-button>
-      </el-col> -->
+      </el-col>-->
     </el-row>
 
     <!-- 折叠面板 -->
@@ -57,13 +57,13 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="客户编号">
-                      <el-input v-model="customerInfoData.number" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.serialNumber" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
                   <el-col :span="16">
                     <el-form-item label="客户名称">
-                      <el-input v-model="customerInfoData.name" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.compName" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -72,14 +72,14 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="地区">
-                      <el-input v-model="customerInfoData.region" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.area" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
                   <!-- <el-col :span="8">
                     <el-form-item label="客户经理">
                       <el-input v-model="customerInfoData.manager" :disabled="true"></el-input>
                     </el-form-item>
-                  </el-col> -->
+                  </el-col>-->
 
                   <el-col :span="8">
                     <el-form-item label="客户等级">
@@ -103,7 +103,7 @@
                     <el-form-item label="客户满意度">
                       <el-rate v-model="customerInfoData.satisfaction" disabled></el-rate>
                     </el-form-item>
-                  </el-col> -->
+                  </el-col>-->
 
                   <el-col :span="8">
                     <el-form-item label="客户信用度">
@@ -118,13 +118,13 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="地址">
-                      <el-input v-model="customerInfoData.address" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.compAddress" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
                   <el-col :span="8">
                     <el-form-item label="联系人">
-                      <el-input v-model="customerInfoData.postcode" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.contactName" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
@@ -148,7 +148,7 @@
                       <el-input v-model="customerInfoData.url" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
-                </el-row> -->
+                </el-row>-->
 
                 <el-divider />
 
@@ -162,14 +162,14 @@
 
                   <el-col :span="8">
                     <el-form-item label="法人">
-                      <el-input v-model="customerInfoData.legalPerson" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.corporation" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
                   <el-col :span="8">
                     <el-form-item label="注册资金">
                       <el-input
-                        v-model="customerInfoData.registeredFund"
+                        v-model="customerInfoData.registerMoney"
                         :disabled="true"
                         placeholder="（万元）"
                       ></el-input>
@@ -182,7 +182,7 @@
                   <el-col :span="8">
                     <el-form-item label="年营业额">
                       <el-input
-                        v-model="customerInfoData.annualSales"
+                        v-model="customerInfoData.annualSale"
                         :disabled="true"
                         placeholder="（万元）"
                       ></el-input>
@@ -191,7 +191,7 @@
 
                   <el-col :span="8">
                     <el-form-item label="地税登记号">
-                      <el-input v-model="customerInfoData.localTaxNumber" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.landTaxNumber" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
@@ -206,7 +206,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="开户银行">
-                      <el-input v-model="customerInfoData.bankName" :disabled="true"></el-input>
+                      <el-input v-model="customerInfoData.depositBank" :disabled="true"></el-input>
                     </el-form-item>
                   </el-col>
 
@@ -288,17 +288,17 @@
 
                 <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-                <el-table-column property="number" label="编号" align="center"></el-table-column>
+                <el-table-column property="id" label="编号" align="center"></el-table-column>
 
                 <el-table-column property="name" label="姓名" align="center"></el-table-column>
 
-                <el-table-column property="sex" label="性别" align="center"></el-table-column>
+                <!-- <el-table-column property="sex" label="性别" align="center"></el-table-column> -->
 
-                <el-table-column property="postiton" label="职位" align="center"></el-table-column>
+                <el-table-column property="position" label="职位" align="center"></el-table-column>
 
-                <el-table-column property="officeTel" label="办公电话" align="center"></el-table-column>
+                <el-table-column property="officePhone" label="办公电话" align="center"></el-table-column>
 
-                <el-table-column property="tel" label="手机号" align="center"></el-table-column>
+                <el-table-column property="mobilePhone" label="手机号" align="center"></el-table-column>
 
                 <el-table-column property="remark" label="备注" align="center"></el-table-column>
 
@@ -568,13 +568,13 @@
 
           <el-col :span="8">
             <el-form-item label="法人">
-              <el-input v-model="customerInfoData.legalPerson"></el-input>
+              <el-input v-model="customerInfoData.corporation"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="注册资金">
-              <el-input v-model="customerInfoData.registeredFund" placeholder="（万元）"></el-input>
+              <el-input v-model="customerInfoData.registerMoney" placeholder="（万元）"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -583,13 +583,13 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="年营业额">
-              <el-input v-model="customerInfoData.annualSales" placeholder="（万元）"></el-input>
+              <el-input v-model="customerInfoData.annualSale" placeholder="（万元）"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="地税登记号">
-              <el-input v-model="customerInfoData.localTaxNumber"></el-input>
+              <el-input v-model="customerInfoData.landTaxNumber"></el-input>
             </el-form-item>
           </el-col>
 
@@ -604,7 +604,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="开户银行">
-              <el-input v-model="customerInfoData.bankName"></el-input>
+              <el-input v-model="customerInfoData.depositBank"></el-input>
             </el-form-item>
           </el-col>
 
@@ -788,7 +788,9 @@
 </template>
 
 <script>
-import PubSub from 'pubsub-js';
+import PubSub from "pubsub-js";
+import customerApi from "@/api/customer";
+import linkmanApi from "@/api/linkman";
 
 export default {
   data() {
@@ -808,27 +810,27 @@ export default {
       // 客户基本信息相关----------------------------------------------------------------
       // 客户基本信息表单
       customerInfoData: {
-        number: "",
-        name: "",
-        region: "",
-        manager: "",
-        level: "",
-        satisfaction: null,
-        credit: null,
-
-        address: "",
-        postcode: "",
+        id: 0,
+        compName: "",
+        type: "",
+        contactName: "",
         tel: "",
-        faxes: "",
-        url: "",
-
+        state: 0,
+        empId: 0,
+        compId: 0,
+        serialNumber: "",
+        createTime: "",
+        area: "",
+        compAddress: "",
+        level: "",
+        credit: 0,
         licenseNumber: "",
-        legalPerson: "",
-        registeredFund: "",
-        annualSales: "",
-        localTaxNumber: "",
+        corporation: "",
+        registerMoney: "",
+        annualSale: "",
+        landTaxNumber: "",
         nationalTaxNumber: "",
-        bankName: "",
+        depositBank: "",
         bankAccount: ""
       },
 
@@ -847,44 +849,7 @@ export default {
       },
 
       // “联系人”表格信息
-      contactsListData: [
-        {
-          number: "1231443",
-          name: "张三1",
-          sex: "男",
-          postiton: "产品经理",
-          officeTel: "89898989",
-          tel: "18711111123",
-          remark: "负责通讯产品线"
-        },
-        {
-          number: "1231443",
-          name: "张三2",
-          sex: "男",
-          postiton: "产品经理",
-          officeTel: "89898989",
-          tel: "18711111123",
-          remark: "负责通讯产品线"
-        },
-        {
-          number: "1231443",
-          name: "张三",
-          sex: "男",
-          postiton: "产品经理",
-          officeTel: "89898989",
-          tel: "18711111123",
-          remark: "负责通讯产品线"
-        },
-        {
-          number: "1231443",
-          name: "张三",
-          sex: "男",
-          postiton: "产品经理",
-          officeTel: "89898989",
-          tel: "18711111123",
-          remark: "负责通讯产品线"
-        }
-      ],
+      contactsListData: [],
       currentRowOfContacts: "",
 
       // 历史订单管理相关---------------------------------------------------------------
@@ -1022,9 +987,25 @@ export default {
       }
     };
   },
-  created() {
-    PubSub.subscribe('details-data',function(event,data){
-      console.log(data)
+  // created() {
+  //   PubSub.subscribe('details-data',function(event,data){
+  //     console.log(data)
+  //   })
+  // },
+  mounted() {
+    // console.log(this.$route.params.id)
+    // this.customerInfoData =
+
+    customerApi.getListById(this.$route.params.id).then(Response => {
+      // console.log(Response.data)
+      this.customerInfoData = Response.data;
+      this.customerInfoData.credit = 3;
+    });
+
+    // contactsListData
+    linkmanApi.getcontactsList().then(Response => {
+      console.log(Response.data)
+      this.contactsListData = Response.data
     })
   },
   methods: {
