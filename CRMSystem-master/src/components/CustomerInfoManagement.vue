@@ -326,6 +326,15 @@
                       style="font-size:20px; text-align:left; color:#000000; margin:10px 0px 0px 10px"
                     >该公司历史订单列表</div>
                   </el-col>
+
+                  <el-col :span="2">
+                    <el-button
+                      style="float: right; padding: 3px 0 ; height:40px; text-align:center"
+                      type="text"
+                      icon="el-icon-plus"
+                      @click="addContacts()"
+                    >添加联系人</el-button>
+                  </el-col>
                 </el-row>
               </div>
 
@@ -999,11 +1008,11 @@ export default {
     customerApi.getListById(this.$route.params.id).then(Response => {
       // console.log(Response.data)
       this.customerInfoData = Response.data;
-      this.customerInfoData.credit = 3;
+      // this.customerInfoData.credit = 3;
     });
 
     // contactsListData
-    linkmanApi.getcontactsList().then(Response => {
+    linkmanApi.getcontactsList(this.$route.params.id).then(Response => {
       console.log(Response.data)
       this.contactsListData = Response.data
     })
