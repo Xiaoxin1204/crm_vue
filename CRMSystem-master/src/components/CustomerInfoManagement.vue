@@ -471,18 +471,18 @@
 
     <!-- "新建/修改客户"弹出框 -->
     <el-dialog ref="create_new_customer_dialog" :visible.sync="createNewCustomerDialogVisible">
-      <el-form ref="customerInfoData" :model="customerInfoData" label-width="100px">
+      <el-form ref="customerInfoDetailsData" :model="customerInfoDetailsData" label-width="100px">
         <!-- 表单第一行 -->
         <el-row>
           <el-col :span="8">
             <el-form-item label="客户编号">
-              <el-input v-model="customerInfoData.number" :disabled="true" placeholder="自动分配"></el-input>
+              <el-input v-model="customerInfoDetailsData.serialNumber" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="16">
             <el-form-item label="客户名称">
-              <el-input v-model="customerInfoData.name"></el-input>
+              <el-input v-model="customerInfoDetailsData.compName" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -491,18 +491,22 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="地区">
-              <el-input v-model="customerInfoData.region"></el-input>
+              <el-input v-model="customerInfoDetailsData.area" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="客户经理">
-              <el-input v-model="customerInfoData.manager"></el-input>
-            </el-form-item>
-          </el-col>
+          <!-- <el-col :span="8">
+                    <el-form-item label="客户经理">
+                      <el-input v-model="customerInfoData.manager" :disabled="true"></el-input>
+                    </el-form-item>
+          </el-col>-->
 
           <el-col :span="8">
             <el-form-item label="客户等级">
-              <el-select v-model="customerInfoData.level" style="width:100%">
+              <el-select
+                v-model="customerInfoDetailsData.level"
+                style="width:100%"
+                :disabled="false"
+              >
                 <el-option label="一级" value="一级"></el-option>
                 <el-option label="二级" value="二级"></el-option>
                 <el-option label="三级" value="三级"></el-option>
@@ -514,15 +518,15 @@
 
         <!-- 表单第三行 -->
         <el-row>
-          <el-col :span="8">
-            <el-form-item label="客户满意度">
-              <el-rate v-model="customerInfoData.satisfaction"></el-rate>
-            </el-form-item>
-          </el-col>
+          <!-- <el-col :span="8">
+                    <el-form-item label="客户满意度">
+                      <el-rate v-model="customerInfoData.satisfaction" disabled></el-rate>
+                    </el-form-item>
+          </el-col>-->
 
           <el-col :span="8">
             <el-form-item label="客户信用度">
-              <el-rate v-model="customerInfoData.credit"></el-rate>
+              <el-rate v-model="customerInfoDetailsData.credit"></el-rate>
             </el-form-item>
           </el-col>
         </el-row>
@@ -533,37 +537,37 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="地址">
-              <el-input v-model="customerInfoData.address"></el-input>
+              <el-input v-model="customerInfoDetailsData.compAddress" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
-            <el-form-item label="邮编">
-              <el-input v-model="customerInfoData.postcode"></el-input>
+            <el-form-item label="联系人">
+              <el-input v-model="customerInfoDetailsData.contactName" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="电话">
-              <el-input v-model="customerInfoData.tel"></el-input>
+              <el-input v-model="customerInfoDetailsData.tel" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <!-- 表单第五行 -->
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="传真">
-              <el-input v-model="customerInfoData.faxes"></el-input>
-            </el-form-item>
-          </el-col>
+        <!-- <el-row>
+                  <el-col :span="8">
+                    <el-form-item label="传真">
+                      <el-input v-model="customerInfoData.faxes" :disabled="true"></el-input>
+                    </el-form-item>
+                  </el-col>
 
-          <el-col :span="16">
-            <el-form-item label="网址">
-              <el-input v-model="customerInfoData.url"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
+                  <el-col :span="16">
+                    <el-form-item label="网址">
+                      <el-input v-model="customerInfoData.url" :disabled="true"></el-input>
+                    </el-form-item>
+                  </el-col>
+        </el-row>-->
 
         <el-divider />
 
@@ -571,19 +575,23 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="营业执照编号">
-              <el-input v-model="customerInfoData.licenseNumber"></el-input>
+              <el-input v-model="customerInfoDetailsData.licenseNumber" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="法人">
-              <el-input v-model="customerInfoData.corporation"></el-input>
+              <el-input v-model="customerInfoDetailsData.corporation" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="注册资金">
-              <el-input v-model="customerInfoData.registerMoney" placeholder="（万元）"></el-input>
+              <el-input
+                v-model="customerInfoDetailsData.registerMoney"
+                :disabled="false"
+                placeholder="（万元）"
+              ></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -592,19 +600,23 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="年营业额">
-              <el-input v-model="customerInfoData.annualSale" placeholder="（万元）"></el-input>
+              <el-input
+                v-model="customerInfoDetailsData.annualSale"
+                :disabled="false"
+                placeholder="（万元）"
+              ></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="地税登记号">
-              <el-input v-model="customerInfoData.landTaxNumber"></el-input>
+              <el-input v-model="customerInfoDetailsData.landTaxNumber" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="8">
             <el-form-item label="国税登记号">
-              <el-input v-model="customerInfoData.nationalTaxNumber"></el-input>
+              <el-input v-model="customerInfoDetailsData.nationalTaxNumber" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -613,13 +625,13 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="开户银行">
-              <el-input v-model="customerInfoData.depositBank"></el-input>
+              <el-input v-model="customerInfoDetailsData.depositBank" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="16">
             <el-form-item label="银行账号">
-              <el-input v-model="customerInfoData.bankAccount"></el-input>
+              <el-input v-model="customerInfoDetailsData.bankAccount" :disabled="false"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -842,7 +854,8 @@ export default {
         depositBank: "",
         bankAccount: ""
       },
-
+      //客户修改弹窗表格内容
+      customerInfoDetailsData: {},
       // 联系人管理相关-----------------------------------------------------------
       // “添加/修改联系人”弹出框控制
       createContactsDialogVisible: false,
@@ -1013,9 +1026,9 @@ export default {
 
     // contactsListData
     linkmanApi.getcontactsList(this.$route.params.id).then(Response => {
-      console.log(Response.data)
-      this.contactsListData = Response.data
-    })
+      console.log(Response.data);
+      this.contactsListData = Response.data;
+    });
   },
   methods: {
     // 查询框-------------------------------------------------------
@@ -1031,12 +1044,21 @@ export default {
     //  "新建/修改客户"对话框----------------------------------------------
     submitCreateNewCustomerForm(formName) {
       this.createNewCustomerDialogVisible = false;
+      customerApi.updateCustomer(this.customerInfoDetailsData).then(Response => {
+        console.log("更新成功！")
+        this.customerInfoData = this.customerInfoDetailsData
+      })
     },
 
     // 客户基本信息管理------------------------------------------------------------------------------------
     editCustomerInfo() {
       this.$refs.create_new_customer_dialog.title = "修改客户基本信息";
       this.createNewCustomerDialogVisible = true;
+      customerApi.getListById(this.$route.params.id).then(Response => {
+        // console.log(Response.data)
+        this.customerInfoDetailsData = Response.data;
+        // this.customerInfoData.credit = 3;
+      });
     },
 
     // "联系人"表格---------------------------------------------------------------------------------------

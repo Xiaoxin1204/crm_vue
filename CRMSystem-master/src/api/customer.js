@@ -21,5 +21,21 @@ export default {
         return req
     },
 
-    
+    addCustomer(customer) {
+        const req = request({
+            method: 'post',
+            url: `/dev-api/customer/addCustomer`,
+            data: customer
+        })
+        return req
+    },
+
+    updateCustomer(customer) {
+        const req = request({
+            method: 'put',
+            url: `/dev-api/customer`,
+            data: customer
+        })
+        return req
+    },
 }
