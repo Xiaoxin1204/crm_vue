@@ -282,13 +282,12 @@
                 stripe
                 border
                 @current-change="handleCurrentChange"
+                @selection-change="handleSelectionChange"
                 style="width: 100%"
               >
                 <el-table-column fixed="left" type="selection" width="55"></el-table-column>
 
                 <el-table-column type="index" label="序号" align="center"></el-table-column>
-
-                <el-table-column property="id" label="编号" align="center"></el-table-column>
 
                 <el-table-column property="name" label="姓名" align="center"></el-table-column>
 
@@ -303,8 +302,13 @@
                 <el-table-column property="remark" label="备注" align="center"></el-table-column>
 
                 <el-table-column label="修改" align="center">
-                  <template>
-                    <el-button @click="editContactsInfo()" icon="el-icon-edit" circle size="small"></el-button>
+                  <template slot-scope="scope">
+                    <el-button
+                      @click="editContactsInfo(scope.row)"
+                      icon="el-icon-edit"
+                      circle
+                      size="small"
+                    ></el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -657,23 +661,16 @@
           <el-input v-model="createContactsFormData.name"></el-input>
         </el-form-item>
 
-        <el-form-item label="性别" prop="sex">
-          <el-select v-model="createContactsFormData.sex" style="width:100%">
-            <el-option label="男" value="男"></el-option>
-            <el-option label="女" value="女"></el-option>
-          </el-select>
-        </el-form-item>
-
         <el-form-item label="职位" prop="position">
           <el-input v-model="createContactsFormData.position"></el-input>
         </el-form-item>
 
-        <el-form-item label="办公电话" prop="officeTel">
-          <el-input v-model="createContactsFormData.officeTel"></el-input>
+        <el-form-item label="办公电话" prop="officePhone">
+          <el-input v-model="createContactsFormData.officePhone"></el-input>
         </el-form-item>
 
-        <el-form-item label="手机" prop="tel">
-          <el-input v-model="createContactsFormData.tel"></el-input>
+        <el-form-item label="手机" prop="mobilePhone">
+          <el-input v-model="createContactsFormData.mobilePhone"></el-input>
         </el-form-item>
 
         <el-form-item label="备注" prop="remark">
@@ -816,6 +813,9 @@ import linkmanApi from "@/api/linkman";
 export default {
   data() {
     return {
+      // 批量删除
+      tableChecked: [],
+      ids: [],
       // 查询类型
       selectKey: {
         type: "",
@@ -862,11 +862,11 @@ export default {
 
       // 联系人表单信息
       createContactsFormData: {
+        id: "",
         name: "",
-        sex: "",
         position: "",
-        officeTel: "",
-        tel: "",
+        officePhone: "",
+        mobilePhone: "",
         remark: ""
       },
 
@@ -1019,14 +1019,11 @@ export default {
     // this.customerInfoData =
 
     customerApi.getListById(this.$route.params.id).then(Response => {
-      // console.log(Response.data)
       this.customerInfoData = Response.data;
-      // this.customerInfoData.credit = 3;
     });
 
     // contactsListData
     linkmanApi.getcontactsList(this.$route.params.id).then(Response => {
-      console.log(Response.data);
       this.contactsListData = Response.data;
     });
   },
@@ -1044,10 +1041,12 @@ export default {
     //  "新建/修改客户"对话框----------------------------------------------
     submitCreateNewCustomerForm(formName) {
       this.createNewCustomerDialogVisible = false;
-      customerApi.updateCustomer(this.customerInfoDetailsData).then(Response => {
-        console.log("更新成功！")
-        this.customerInfoData = this.customerInfoDetailsData
-      })
+      customerApi
+        .updateCustomer(this.customerInfoDetailsData)
+        .then(Response => {
+          console.log("更新成功！");
+          this.customerInfoData = this.customerInfoDetailsData;
+        });
     },
 
     // 客户基本信息管理------------------------------------------------------------------------------------
@@ -1055,9 +1054,7 @@ export default {
       this.$refs.create_new_customer_dialog.title = "修改客户基本信息";
       this.createNewCustomerDialogVisible = true;
       customerApi.getListById(this.$route.params.id).then(Response => {
-        // console.log(Response.data)
         this.customerInfoDetailsData = Response.data;
-        // this.customerInfoData.credit = 3;
       });
     },
 
@@ -1065,25 +1062,52 @@ export default {
     // 添加联系人
     addContacts() {
       this.$refs.create_contacts_dialog.title = "创建联系人";
+      console.log("点击创建联系人时createContactsFormData",this.createContactsFormData);
       this.createContactsDialogVisible = true;
     },
 
-    // 修改联系人信息
-    editContactsInfo() {
-      console.log(this.currentRowOfContacts);
+    // 查看联系人信息详情
+    editContactsInfo(row) {
+      const id = row.id;
+      this.contactsListData.forEach(item => {
+        if (item.id == id) {
+          // name
+          // position
+          // officeTel
+          // tel
+          // remark
+          this.createContactsFormData = item;
+          }
+      });
+      console.log("修改联系人信息",this.createContactsFormData);
       this.$refs.create_contacts_dialog.title = "修改联系人信息";
       this.createContactsDialogVisible = true;
     },
 
     // 表格控制当前选中行
     handleCurrentChange(val) {
-      this.currentRowOfContacts = val;
-      this.currentRowOfHistoryOrder = val;
-      this.currentRowOfIntercourse = val;
+      // this.currentRowOfContacts = val;
+      // this.currentRowOfHistoryOrder = val;
+      // this.currentRowOfIntercourse = val;
+      // console.log("表格控制当前选中行",val);
+    },
+
+    //当联系人选择状态发生改变时触发
+    handleSelectionChange(val) {
+      this.tableChecked = val;
+      console.log("当联系人选择状态发生改变时触发",val);
     },
 
     // 批量删除联系人
-    deleteContactsInBatches() {},
+    deleteContactsInBatches() {
+      this.tableChecked.forEach(element => {
+        // console.log(element);
+        linkmanApi.deleteLinkMan(element.id).then(Response => {
+          console.log("删除成功！");
+          history.go(-1);
+        });
+      });
+    },
 
     // 刷新联系人列表
     refreshContactsList() {
@@ -1098,7 +1122,18 @@ export default {
 
     // “新建/修改联系人”对话框---------------------------------------------------
     submitCreateContactsForm(formName) {
-      this.$refs[formName].resetFields();
+      if (this.$refs.create_contacts_dialog.title == "创建联系人") {
+        console.log("添加联系人信息",this.createContactsFormData);
+        linkmanApi.addLinkMan(this.createContactsFormData).then(Response => {
+          console.log("联系人添加成功！");
+        });
+      } else {
+        console.log("修改联系人信息",this.createContactsFormData);
+        linkmanApi.updateLinkMan(this.createContactsFormData).then(Response => {
+          console.log("联系人更新成功！");
+        });
+      }
+
       this.createContactsDialogVisible = false;
     },
     resetreateContactsForm(formName) {

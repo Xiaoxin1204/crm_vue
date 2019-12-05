@@ -42,13 +42,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="客户编号">
-                <el-input v-model="customerInfoData.serialNumber" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.serialNumber" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="16">
               <el-form-item label="客户名称">
-                <el-input v-model="customerInfoData.compName" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.compName" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -57,7 +57,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="地区">
-                <el-input v-model="customerInfoData.area" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.area" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
             <!-- <el-col :span="8">
@@ -68,7 +68,7 @@
 
             <el-col :span="8">
               <el-form-item label="客户等级">
-                <el-select v-model="customerInfoData.level" style="width:100%" :disabled="true">
+                <el-select v-model="customerInfoData.level" style="width:100%" :disabled="false">
                   <el-option label="一级" value="一级"></el-option>
                   <el-option label="二级" value="二级"></el-option>
                   <el-option label="三级" value="三级"></el-option>
@@ -88,7 +88,7 @@
 
             <el-col :span="8">
               <el-form-item label="客户信用度">
-                <el-rate v-model="customerInfoData.credit" disabled></el-rate>
+                <el-rate v-model="customerInfoData.credit"></el-rate>
               </el-form-item>
             </el-col>
           </el-row>
@@ -99,19 +99,19 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="地址">
-                <el-input v-model="customerInfoData.compAddress" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.compAddress" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="联系人">
-                <el-input v-model="customerInfoData.contactName" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.contactName" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="电话">
-                <el-input v-model="customerInfoData.tel" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.tel" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -137,13 +137,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="营业执照编号">
-                <el-input v-model="customerInfoData.licenseNumber" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.licenseNumber" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="法人">
-                <el-input v-model="customerInfoData.corporation" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.corporation" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
@@ -151,7 +151,7 @@
               <el-form-item label="注册资金">
                 <el-input
                   v-model="customerInfoData.registerMoney"
-                  :disabled="true"
+                  :disabled="false"
                   placeholder="（万元）"
                 ></el-input>
               </el-form-item>
@@ -162,19 +162,23 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="年营业额">
-                <el-input v-model="customerInfoData.annualSale" :disabled="true" placeholder="（万元）"></el-input>
+                <el-input
+                  v-model="customerInfoData.annualSale"
+                  :disabled="false"
+                  placeholder="（万元）"
+                ></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="地税登记号">
-                <el-input v-model="customerInfoData.landTaxNumber" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.landTaxNumber" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item label="国税登记号">
-                <el-input v-model="customerInfoData.nationalTaxNumber" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.nationalTaxNumber" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -183,13 +187,13 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="开户银行">
-                <el-input v-model="customerInfoData.depositBank" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.depositBank" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="16">
               <el-form-item label="银行账号">
-                <el-input v-model="customerInfoData.bankAccount" :disabled="true"></el-input>
+                <el-input v-model="customerInfoData.bankAccount" :disabled="false"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -198,10 +202,7 @@
           <el-form-item>
             <el-row>
               <el-col :span="4" :offset="20">
-                <el-button
-                  type="primary"
-                  @click="submitCreateNewCustomerForm()"
-                >确定提交</el-button>
+                <el-button type="primary" @click="submitCreateNewCustomerForm()">确定提交</el-button>
               </el-col>
             </el-row>
           </el-form-item>
@@ -254,6 +255,7 @@
           ref="marketing_opportunity_info_list"
           :data="marketingOpportunityListData"
           highlight-current-row
+          @selection-change="handleSelectionChange"
           stripe
           border
           style="width: 100%"
@@ -382,6 +384,9 @@ import PubSub from "pubsub-js";
 export default {
   data() {
     return {
+      // 批量删除
+      tableChecked: [],
+      customerId: 0,
       // “新建客户/修改客户信息”弹出框显示控制
       createNewCustomerDialogVisible: false,
       // 客户基本信息表单
@@ -415,16 +420,13 @@ export default {
       total: 0,
       marketingOpportunityListData: [],
       currentRow: "",
-
       // 查询类型
       selectKey: {
         type: "",
         value: ""
       },
-
       // “创建营销”弹出框是否可见
       dialogFormVisible: false,
-
       // "创建营销"表单（修改字段名时主义将“rules”的字段名一起修改）
       creatingMarketingOpportunityForm: {
         name: "",
@@ -474,8 +476,9 @@ export default {
     //提交新客户
     submitCreateNewCustomerForm() {
       customerApi.addCustomer(this.customerInfoData).then(response => {
-        console.log("添加成功！")
-      })
+        console.log("添加成功！");
+      });
+      this.createNewCustomerDialogVisible = false;
     },
     //分页功能的方法
     handleSizeChange(val) {
@@ -501,8 +504,35 @@ export default {
       this.currentRow = val;
     },
 
-    // 删除收费项目
-    deleteInBatches() {},
+    // 表单行的选择状态发生改变时触发
+    handleSelectionChange(val) {
+      this.tableChecked = val;
+    },
+    // 批量删除
+    deleteInBatches() {
+      //循环进行批量删除
+      this.tableChecked.forEach(element => {
+        //获取需要删除的元素的id
+        this.customerId = element.id;
+        console.log(this.customerId);
+        //通过接口来进行删除操作
+        customerApi.deleteCustomer(this.customerId).then(Response => {
+          console.log("删除成功！");
+          //删除成功后改变渲染的数据
+          // const len = this.marketingOpportunityListData.length;
+          // for(var i=0 ; i<this.marketingOpportunityListData.length; i++) {
+          //   if(this.customerId == this.marketingOpportunityListData[i].id);
+          //   this.marketingOpportunityListData.splice(i,1);
+          //   i--;
+          // }
+          // this.marketingOpportunityListData.forEach(item => {
+          //   console.log(item);
+          // });
+          // console.log(this.marketingOpportunityListData)
+          history.go(0)
+        });
+      });
+    },
 
     // 刷新列表
     refreshList() {

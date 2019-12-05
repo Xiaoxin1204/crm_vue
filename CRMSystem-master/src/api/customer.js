@@ -38,4 +38,12 @@ export default {
         })
         return req
     },
+
+    deleteCustomer(customerId) {
+        const req = request({
+            method: 'delete',
+            url: `/dev-api/customer?customerId=${customerId}`
+        })
+        return req
+    },
 }

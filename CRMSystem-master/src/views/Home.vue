@@ -3,15 +3,12 @@
     <!-- Header -->
     <el-header style="background-color: #ffffff; margin: 10px 0px 20px 0px; height:70px">
       <el-row>
-        <el-col :span="3">
-          <el-image :src="logoUrl" style="height:70px"></el-image>
-        </el-col>
-        <el-col :span="19" style="marginLeft:15px">
-          <h2 style="text-align:left; marginTop:24px;">东软客户关系管理系统</h2>
+        <el-col :span="22" style="marginLeft:15px">
+          <h2 style="text-align:left; marginTop:24px;">软工帮扶客户关系管理系统</h2>
         </el-col>
         <!-- 退出按钮 -->
         <el-col :span="1">
-          <el-button icon="el-icon-switch-button" @click="logOut()" circle style="marginTop:20px;"></el-button>
+          <el-button icon="el-icon-switch-button" @click="logOut()" circle style="marginTop:20px;float: right;"></el-button>
         </el-col>
       </el-row>
     </el-header>
