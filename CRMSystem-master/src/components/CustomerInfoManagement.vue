@@ -331,14 +331,14 @@
                     >该公司历史订单列表</div>
                   </el-col>
 
-                  <el-col :span="2">
+                  <!-- <el-col :span="2">
                     <el-button
                       style="float: right; padding: 3px 0 ; height:40px; text-align:center"
                       type="text"
                       icon="el-icon-plus"
                       @click="addContacts()"
                     >添加联系人</el-button>
-                  </el-col>
+                  </el-col>-->
                 </el-row>
               </div>
 
@@ -354,18 +354,18 @@
               >
                 <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-                <el-table-column property="number" label="订单编号" align="center"></el-table-column>
+                <el-table-column property="serialNumber" label="订单编号" align="center"></el-table-column>
 
-                <el-table-column property="date" label="日期" align="center"></el-table-column>
+                <el-table-column property="createTime" label="日期" align="center"></el-table-column>
 
                 <el-table-column property="address" label="送货地址" align="center"></el-table-column>
 
-                <el-table-column property="situation" label="状态" align="center"></el-table-column>
+                <el-table-column property="state" label="状态" align="center"></el-table-column>
 
                 <el-table-column label="查看详情" align="center">
-                  <template>
+                  <template slot-scope="scope">
                     <el-button
-                      @click="viewHistoryOrderDetails()"
+                      @click="viewHistoryOrderDetails(scope.row)"
                       icon="el-icon-document"
                       circle
                       size="small"
@@ -444,22 +444,22 @@
 
                 <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-                <el-table-column property="number" label="编号" align="center"></el-table-column>
+                <!-- <el-table-column property="number" label="编号" align="center"></el-table-column> -->
 
-                <el-table-column property="date" label="时间" align="center"></el-table-column>
+                <el-table-column property="time" label="时间" align="center"></el-table-column>
 
-                <el-table-column property="location" label="地点" align="center"></el-table-column>
+                <el-table-column property="address" label="地点" align="center"></el-table-column>
 
-                <el-table-column property="digest" label="概要" align="center"></el-table-column>
+                <el-table-column property="profile" label="概要" align="center"></el-table-column>
 
-                <el-table-column property="detail" label="详细信息" align="center"></el-table-column>
+                <el-table-column property="detailInfo" label="详细信息" align="center"></el-table-column>
 
                 <el-table-column property="remark" label="备注" align="center"></el-table-column>
 
                 <el-table-column label="修改" align="center">
-                  <template>
+                  <template slot-scope="scope">
                     <el-button
-                      @click="editIntercourseInfo()"
+                      @click="editIntercourseInfo(scope.row)"
                       icon="el-icon-edit"
                       circle
                       size="small"
@@ -707,23 +707,23 @@
         label-width="100px"
       >
         <el-form-item label="订单编号" prop="number">
-          <el-input v-model="historyOrderDetailsFormData.number" :disabled="true"></el-input>
+          <el-input v-model="historyOrderDetailsFormData.serialNumber" :disabled="true"></el-input>
         </el-form-item>
 
         <el-form-item label="日期" prop="date">
-          <el-input v-model="historyOrderDetailsFormData.number" :disabled="true"></el-input>
+          <el-input v-model="historyOrderDetailsFormData.createTime" :disabled="true"></el-input>
         </el-form-item>
 
         <el-form-item label="状态" prop="situation">
-          <el-input v-model="historyOrderDetailsFormData.number" :disabled="true"></el-input>
+          <el-input v-model="historyOrderDetailsFormData.state" :disabled="true"></el-input>
         </el-form-item>
 
-        <el-form-item label="总金额（元）" prop="totalPrice">
+        <!-- <el-form-item label="总金额（元）" prop="totalPrice">
           <el-input v-model="historyOrderDetailsFormData.number" :disabled="true"></el-input>
-        </el-form-item>
+        </el-form-item>-->
 
         <el-form-item label="送货地址" prop="address">
-          <el-input v-model="historyOrderDetailsFormData.number" :disabled="true"></el-input>
+          <el-input v-model="historyOrderDetailsFormData.address" :disabled="true"></el-input>
         </el-form-item>
       </el-form>
 
@@ -742,15 +742,15 @@
 
         <el-table-column property="name" label="商品名称" align="center"></el-table-column>
 
-        <el-table-column property="amount" label="数量" align="center"></el-table-column>
+        <el-table-column property="number" label="数量" align="center"></el-table-column>
 
-        <el-table-column property="region" label="地区" align="center"></el-table-column>
+        <el-table-column property="address" label="地区" align="center"></el-table-column>
 
         <el-table-column property="unit" label="单位" align="center"></el-table-column>
 
         <el-table-column property="unitPrice" label="单价（元）" align="center"></el-table-column>
 
-        <el-table-column property="price" label="金额（元）" align="center"></el-table-column>
+        <!-- <el-table-column property="price" label="金额（元）" align="center"></el-table-column> -->
       </el-table>
     </el-dialog>
 
@@ -761,21 +761,21 @@
         ref="createIntercourseFormData"
         label-width="100px"
       >
-        <el-form-item label="时间" prop="date">
+        <el-form-item label="时间" prop="date" v-if="isAdd">
           <el-date-picker
             type="date"
             placeholder="选择日期"
-            v-model="createIntercourseFormData.date"
+            v-model="createIntercourseFormData.time"
             style="width: 100%;"
           ></el-date-picker>
         </el-form-item>
 
         <el-form-item label="地点" prop="location">
-          <el-input v-model="createIntercourseFormData.location"></el-input>
+          <el-input v-model="createIntercourseFormData.address"></el-input>
         </el-form-item>
 
         <el-form-item label="概要" prop="digest">
-          <el-input v-model="createIntercourseFormData.digest"></el-input>
+          <el-input v-model="createIntercourseFormData.profile"></el-input>
         </el-form-item>
 
         <el-form-item label="备注" prop="remark">
@@ -783,7 +783,7 @@
         </el-form-item>
 
         <el-form-item label="详情" prop="details">
-          <el-input type="textarea" v-model="createIntercourseFormData.details"></el-input>
+          <el-input type="textarea" v-model="createIntercourseFormData.detailInfo"></el-input>
         </el-form-item>
 
         <!-- 提交/重置表单按钮 -->
@@ -809,6 +809,8 @@
 import PubSub from "pubsub-js";
 import customerApi from "@/api/customer";
 import linkmanApi from "@/api/linkman";
+import orderApi from "@/api/order";
+import commApi from "@/api/comm";
 
 export default {
   data() {
@@ -862,12 +864,12 @@ export default {
 
       // 联系人表单信息
       createContactsFormData: {
-        id: "",
-        name: "",
-        position: "",
-        officePhone: "",
-        mobilePhone: "",
-        remark: ""
+        // id: "",
+        // name: "",
+        // position: "",
+        // officePhone: "",
+        // mobilePhone: "",
+        // remark: ""
       },
 
       // “联系人”表格信息
@@ -875,32 +877,7 @@ export default {
       currentRowOfContacts: "",
 
       // 历史订单管理相关---------------------------------------------------------------
-      historyOrderListData: [
-        {
-          number: "4131411",
-          date: "2019-10-29",
-          address: "重庆市互联网学院1",
-          situation: "已回款"
-        },
-        {
-          number: "4131411",
-          date: "2019-10-29",
-          address: "重庆市互联网学院2",
-          situation: "已回款"
-        },
-        {
-          number: "4131411",
-          date: "2019-10-29",
-          address: "重庆市互联网学院3",
-          situation: "已回款"
-        },
-        {
-          number: "4131411",
-          date: "2019-10-29",
-          address: "重庆市互联网学院4",
-          situation: "已回款"
-        }
-      ],
+      historyOrderListData: [],
       currentRowOfHistoryOrder: "",
 
       // “历史订单详情”弹出框显示控制
@@ -908,104 +885,33 @@ export default {
 
       // “历史订单详情”弹出框内的表单
       historyOrderDetailsFormData: {
-        number: "",
-        date: "",
-        situation: "",
-        totalPrice: "",
+        serialNumber: "",
+        createTime: "",
+        state: "",
         address: ""
       },
 
       // “历史订单详情”弹出框内的商品信息表格
-      historyOrderCommodityListData: [
-        {
-          name: "洗面奶",
-          amount: 20,
-          region: "日本",
-          unit: "支",
-          unitPrice: 30,
-          price: 600
-        },
-        {
-          name: "洗面奶",
-          amount: 20,
-          region: "日本",
-          unit: "支",
-          unitPrice: 30,
-          price: 600
-        },
-        {
-          name: "洗面奶",
-          amount: 20,
-          region: "日本",
-          unit: "支",
-          unitPrice: 30,
-          price: 600
-        },
-        {
-          name: "洗面奶",
-          amount: 20,
-          region: "日本",
-          unit: "支",
-          unitPrice: 30,
-          price: 600
-        }
-      ],
+      historyOrderCommodityListData: [],
 
       // 交往信息管理相关----------------------------------------------------------------
-      intercourseListData: [
-        {
-          number: "21432235",
-          date: "2019-8-2",
-          location: "海南省三亚市",
-          digest: "签订意向协议",
-          detail: "...",
-          remark: "主办单位：海南通讯协会"
-        },
-        {
-          number: "21432235",
-          date: "2019-8-2",
-          location: "海南省三亚市",
-          digest: "签订意向协议",
-          detail: "...",
-          remark: "主办单位：海南通讯协会"
-        },
-        {
-          number: "21432235",
-          date: "2019-8-2",
-          location: "海南省三亚市",
-          digest: "签订意向协议",
-          detail: "...",
-          remark: "主办单位：海南通讯协会"
-        },
-        {
-          number: "21432235",
-          date: "2019-8-2",
-          location: "海南省三亚市",
-          digest: "签订意向协议",
-          detail: "...",
-          remark: "主办单位：海南通讯协会"
-        },
-        {
-          number: "21432235",
-          date: "2019-8-2",
-          location: "海南省三亚市",
-          digest: "签订意向协议",
-          detail: "...",
-          remark: "主办单位：海南通讯协会"
-        }
-      ],
+      intercourseListData: [],
       currentRowOfIntercourse: "",
+
+      // 控制表单内的时间是否出现
+      isAdd : false,
 
       // “添加/修改交往信息”弹出框显示控制
       createIntercourseDialogVisible: false,
 
       // “添加/修改交往信息”弹出框内的表单
       createIntercourseFormData: {
-        date: "",
-        location: "",
-        digest: "",
+        time: "",
+        profile: "",
+        detailInfo: "",
+        address: "",
         remark: "",
-        details: ""
+        customerId: 0
       }
     };
   },
@@ -1015,9 +921,6 @@ export default {
   //   })
   // },
   mounted() {
-    // console.log(this.$route.params.id)
-    // this.customerInfoData =
-
     customerApi.getListById(this.$route.params.id).then(Response => {
       this.customerInfoData = Response.data;
     });
@@ -1025,6 +928,16 @@ export default {
     // contactsListData
     linkmanApi.getcontactsList(this.$route.params.id).then(Response => {
       this.contactsListData = Response.data;
+    });
+
+    //historyOrderListData
+    orderApi.getOrderListById(this.$route.params.id).then(Response => {
+      this.historyOrderListData = Response.data;
+    });
+
+    //intercourseListData
+    commApi.getCommListById(this.$route.params.id).then(Response => {
+      this.intercourseListData = Response.data;
     });
   },
   methods: {
@@ -1062,7 +975,11 @@ export default {
     // 添加联系人
     addContacts() {
       this.$refs.create_contacts_dialog.title = "创建联系人";
-      console.log("点击创建联系人时createContactsFormData",this.createContactsFormData);
+      this.createContactsFormData = {};
+      console.log(
+        "点击创建联系人时createContactsFormData",
+        this.createContactsFormData
+      );
       this.createContactsDialogVisible = true;
     },
 
@@ -1071,15 +988,10 @@ export default {
       const id = row.id;
       this.contactsListData.forEach(item => {
         if (item.id == id) {
-          // name
-          // position
-          // officeTel
-          // tel
-          // remark
           this.createContactsFormData = item;
-          }
+        }
       });
-      console.log("修改联系人信息",this.createContactsFormData);
+      console.log("修改联系人信息", this.createContactsFormData);
       this.$refs.create_contacts_dialog.title = "修改联系人信息";
       this.createContactsDialogVisible = true;
     },
@@ -1095,7 +1007,7 @@ export default {
     //当联系人选择状态发生改变时触发
     handleSelectionChange(val) {
       this.tableChecked = val;
-      console.log("当联系人选择状态发生改变时触发",val);
+      console.log("当联系人选择状态发生改变时触发", val);
     },
 
     // 批量删除联系人
@@ -1120,15 +1032,15 @@ export default {
       console.log("cancel selection");
     },
 
-    // “新建/修改联系人”对话框---------------------------------------------------
+    // 提交“新建/修改联系人”对话框---------------------------------------------------
     submitCreateContactsForm(formName) {
       if (this.$refs.create_contacts_dialog.title == "创建联系人") {
-        console.log("添加联系人信息",this.createContactsFormData);
+        console.log("添加联系人信息", this.createContactsFormData);
         linkmanApi.addLinkMan(this.createContactsFormData).then(Response => {
           console.log("联系人添加成功！");
         });
       } else {
-        console.log("修改联系人信息",this.createContactsFormData);
+        console.log("修改联系人信息", this.createContactsFormData);
         linkmanApi.updateLinkMan(this.createContactsFormData).then(Response => {
           console.log("联系人更新成功！");
         });
@@ -1137,25 +1049,38 @@ export default {
       this.createContactsDialogVisible = false;
     },
     resetreateContactsForm(formName) {
-      this.$refs[formName].resetFields();
     },
 
-    // 历史订单管理---------------------------------------------------------------------------------------------
-    viewHistoryOrderDetails() {
-      console.log(this.currentRowOfHistoryOrder);
+    // 查看历史订单详情按钮---------------------------------------------------------------------------------------------
+    viewHistoryOrderDetails(row) {
+      console.log("查看历史订单详情按钮", row);
+      orderApi.getOrderDetailById(row.id).then(Response => {
+        this.historyOrderDetailsFormData.serialNumber =
+          Response.data.serialNumber;
+        this.historyOrderDetailsFormData.createTime = Response.data.createTime;
+        this.historyOrderDetailsFormData.state = Response.data.state;
+        this.historyOrderDetailsFormData.address = Response.data.address;
+        this.historyOrderCommodityListData = Response.data.products;
+      });
       this.historyOrderDialogVisible = true;
     },
 
     // 交往信息管理-------------------------------------------------------------------------
     // 添加交往信息
     addIntercourse() {
+      this.isAdd = false;
       this.$refs.create_intercourse_dialog.title = "创建交往信息记录";
+      this.createIntercourseFormData = {};
       this.createIntercourseDialogVisible = true;
     },
 
     // 修改交往信息
-    editIntercourseInfo() {
-      console.log(this.currentRowOfContacts);
+    editIntercourseInfo(row) {
+      this.isAdd = true;
+      console.log("修改交往信息", row);
+      commApi.getOrderDetailById(row.id).then(Response => {
+        this.createIntercourseFormData = Response.data;
+      });
       this.$refs.create_intercourse_dialog.title = "修改交往信息记录";
       this.createIntercourseDialogVisible = true;
     },
@@ -1176,8 +1101,18 @@ export default {
 
     // “新建/修改联系人”对话框---------------------------------------------------
     submitCreateIntercourseForm(formName) {
-      this.$refs[formName].resetFields();
       this.createIntercourseDialogVisible = false;
+      if (this.$refs.create_intercourse_dialog.title == "创建交往信息记录") {
+        this.createIntercourseFormData.customerId = this.$route.params.id;
+        console.log("提交的新交往信息",this.createIntercourseFormData);
+        commApi.addComm(this.createIntercourseFormData).then(Response => {
+          console.log("新建交往信息成功");
+        });
+      }else {
+        commApi.addComm(this.createIntercourseFormData).then(Response => {
+          console.log("新建交往信息成功");
+        });
+      }
     },
     resetreateIntercourseForm(formName) {
       this.$refs[formName].resetFields();
