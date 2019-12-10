@@ -4,7 +4,7 @@ export default {
     getOrderListById(customerId) {
         const req = request({
             method: 'get',
-            url: `/dev-api/order/findAllOrderById?customerId=${customerId}`
+            url: `/order/findAllOrderById?customerId=${customerId}`
         })
         return req
     },
@@ -12,7 +12,7 @@ export default {
     getOrderDetailById(orderId) {
         const req = request({
             method: 'get',
-            url: `/dev-api/order/findOrderDetail?orderId=${orderId}`
+            url: `/order/findOrderDetail?orderId=${orderId}`
         })
         return req
     }

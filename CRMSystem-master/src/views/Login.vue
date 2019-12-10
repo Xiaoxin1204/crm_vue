@@ -3,76 +3,90 @@
     <el-row style="height:50px"></el-row>
     <el-container>
       <el-main>
-            <el-row >
-              <el-col :span="22" :offset="1" >
-                <el-card >
-                  <el-row>
+        <el-row>
+          <el-col :span="22" :offset="1">
+            <el-card>
+              <el-row>
+                <el-col :span="18">
+                  <el-image :src="imageUrl" style="height:500px" :fit="cover"></el-image>
+                </el-col>
 
-                    <el-col :span="18">
-                      <el-image :src="imageUrl" style="height:500px" :fit="cover"></el-image>
-                    </el-col>
+                <el-col :span="5" :offset="1">
+                  <el-form
+                    :model="LoginForm"
+                    ref="LoginForm"
+                    :rules="rule"
+                    label-width="0"
+                    style="align:'center'"
+                  >
+                    <h3
+                      style="font-weight:bolder; font-size:larger; marginTop: 80px; margin-bottom: 30px"
+                    >登录</h3>
 
-                    <el-col :span="5" :offset="1">
+                    <el-form-item prop="id" v-show="account">
+                      <el-input type="text" v-model="LoginForm.id" placeholder="请输入您的账号"></el-input>
+                    </el-form-item>
 
-                          <el-form
-                              :model="LoginForm"
-                              ref="LoginForm"
-                              :rules="rule"
-                              label-width="0"
-                              style="align:'center'"
-                            >
-                              
-                              <h3 style="font-weight:bolder; font-size:larger; marginTop: 80px; margin-bottom: 30px">登录</h3>
+                    <el-form-item prop="pwd" v-show="account">
+                      <el-input type="password" v-model="LoginForm.pwd" placeholder="请输入您的密码"></el-input>
+                    </el-form-item>
 
-                              <el-form-item prop="id">
-                                <el-input type="text" v-model="LoginForm.id" placeholder="请输入电话号码或者电子邮箱"></el-input>
-                              </el-form-item>
+                    <el-form-item prop="id" v-show="phone">
+                      <el-input type="text" v-model="LoginForm.id" placeholder="请输入您的电话号码"></el-input>
+                    </el-form-item>
 
-                              <el-form-item prop="pwd">
-                                <el-input type="password" v-model="LoginForm.pwd" placeholder="请输入密码"></el-input>
-                              </el-form-item>
+                    <el-form-item prop="pwd" v-show="phone">
+                      <el-input
+                        style="width: 65%;"
+                        type="password"
+                        v-model="LoginForm.pwd"
+                        placeholder="请输入您的验证码"
+                      ></el-input>
+                      <el-button type="danger" class="code" style="padding-left: 15px;" round>获取验证码</el-button>
+                    </el-form-item>
 
-                              <el-form-item>
-                                <el-button
-                                  type="danger"
-                                  class="submitBtn"
-                                  align="center"
-                                  round
-                                  @click.native.prevent="submit('LoginForm')"
-                                >登录</el-button>
+                    <el-form-item>
+                      <el-button
+                        type="danger"
+                        class="submitBtn"
+                        align="center"
+                        round
+                        @click.native.prevent="submit('LoginForm')"
+                      >登录</el-button>
+                    </el-form-item>
 
-                                <el-divider></el-divider>
-                                <p>
-                                  还没有账号，马上去
-                                  <span class="to" @click="toregin">注册</span>
-                                </p>
-                              </el-form-item>
-                            </el-form>
+                    <el-form-item class="switch" v-show="account">
+                      <i class="el-icon-mobile-phone">
+                        <a href="#" @click="switchs">验证码登录</a>
+                      </i>
+                    </el-form-item>
 
-                    </el-col>
-                        
+                    <el-form-item class="switch" v-show="phone">
+                      <i class="el-icon-lock">
+                        <a href="#" @click="switchs">密码登录</a>
+                      </i>
+                    </el-form-item>
 
-
-                  </el-row>
-                </el-card>
-              </el-col>
-            </el-row>
-
+                    <el-form-item>
+                      <el-divider></el-divider>
+                      <el-button round class="create" @click="toregin">创建新企业</el-button>
+                    </el-form-item>
+                  </el-form>
+                </el-col>
+              </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-main>
 
       <el-footer style="marginTop:30px">
-
         <el-divider content-position="center">Copyright @ 东软客户关系管理系统</el-divider>
-
       </el-footer>
     </el-container>
   </div>
-
 </template>
 
 <script>
-
-
 export default {
   // ....
   data() {
@@ -87,6 +101,8 @@ export default {
       }
     };
     return {
+      account: true,
+      phone: false,
       activeName: "first",
       LoginForm: {
         id: "",
@@ -112,13 +128,12 @@ export default {
         ]
       },
 
-      imageUrl: require( '../assets/loginPic.jpg'),
+      imageUrl: require("../assets/loginPic.jpg")
     };
   },
   methods: {
     // 提交表单
     submit(formName) {
-      
       this.$router.push("/Home");
       // this.$refs[formName].validate(valid => {
       //   if (valid) {
@@ -138,7 +153,7 @@ export default {
       //         console.log(res.data.status);
       //         if (res.data.status == 200) {
       //           this.$router.push("/Home");
-      //         } 
+      //         }
       //       });
       //   } else {
       //     console.log(res.data.status);
@@ -148,7 +163,7 @@ export default {
       //             //message: 'res.data.msg'
       //           });
       //           return false;
-              
+
       //     console.log("submit err");
       //     return false;
       //   }
@@ -174,12 +189,32 @@ export default {
         .then(res => {
           console.log("res=>", res);
         });
+    },
+    // 点击切换登录方式
+    switchs() {
+      if (this.account) {
+        this.account = false
+        this.phone = true
+      } else {
+        this.account = true
+        this.phone = false
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+a {
+  margin-left: 5px;
+  color: #e78989;
+}
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 .login-form {
   margin: 20px auto;
   width: 310px;
@@ -187,12 +222,27 @@ export default {
   box-shadow: 0 0 35px #b4bccc;
   padding: 30px 30px 0 30px;
   border-radius: 25px;
-} 
+}
 .submitBtn {
   width: 65%;
 }
 .to {
   color: #67c23a;
   cursor: pointer;
+}
+.create {
+  /* margin-top: 20%; */
+  border: 1px solid #e78989;
+  color: #e78989;
+}
+.switch {
+  margin-top: -6%;
+  margin-left: 70%;
+  color: #e78989;
+}
+.code {
+  width: 30%;
+  margin-left: 5%;
+  padding-left: 15px;
 }
 </style>

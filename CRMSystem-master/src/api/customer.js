@@ -8,7 +8,7 @@ export default {
     getList(page,rows) {
         const req = request({
             method: 'get',
-            url: `/dev-api/customer/findCustomerByPage?page=${page}`
+            url: `/customer/findCustomerByPage?page=${page}`
         })
         return req
     },
@@ -16,7 +16,7 @@ export default {
     getListById(customerId) {
         const req = request({
             method: 'get',
-            url: `/dev-api/customer/findCustomerById?customerId=${customerId}`
+            url: `/customer/findCustomerById?customerId=${customerId}`
         })
         return req
     },
@@ -24,7 +24,7 @@ export default {
     addCustomer(customer) {
         const req = request({
             method: 'post',
-            url: `/dev-api/customer/addCustomer`,
+            url: `/customer/addCustomer`,
             data: customer
         })
         return req
@@ -33,7 +33,7 @@ export default {
     updateCustomer(customer) {
         const req = request({
             method: 'put',
-            url: `/dev-api/customer`,
+            url: `/customer`,
             data: customer
         })
         return req
@@ -42,7 +42,7 @@ export default {
     deleteCustomer(customerId) {
         const req = request({
             method: 'delete',
-            url: `/dev-api/customer?customerId=${customerId}`
+            url: `/customer?customerId=${customerId}`
         })
         return req
     },

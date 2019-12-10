@@ -4,7 +4,7 @@ export default {
     getCommListById(custoemrId) {
         const req = request({
             method: 'get',
-            url: `/dev-api/comm/findAllById?custoemrId=${custoemrId}`
+            url: `/comm/findAllById?custoemrId=${custoemrId}`
         })
         return req
     },
@@ -12,7 +12,7 @@ export default {
     getOrderDetailById(commId) {
         const req = request({
             method: 'get',
-            url: `/dev-api/comm/findCommById?commId=${commId}`
+            url: `/comm/findCommById?commId=${commId}`
         })
         return req
     },
@@ -20,7 +20,7 @@ export default {
     addComm(comm) {
         const req = request({
             method: 'post',
-            url: `/dev-api/comm/addComm`,
+            url: `/comm/addComm`,
             data: comm
         })
         return req
@@ -29,7 +29,7 @@ export default {
     deleteComm(commId) {
         const req = request({
             method: 'delete',
-            url: `/dev-api/comm/addComm?commId=${commId}`
+            url: `/comm/addComm?commId=${commId}`
         })
         return req
     },

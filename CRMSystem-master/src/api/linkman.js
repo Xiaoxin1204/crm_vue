@@ -4,7 +4,7 @@ export default {
     getcontactsList(id) {
         const req = request({
             method: 'get',
-            url: `/dev-api/linkman/findLinkmanByCustomerId?customerId=${id}`
+            url: `/linkman/findLinkmanByCustomerId?customerId=${id}`
         })
         return req
     },
@@ -12,7 +12,7 @@ export default {
     deleteLinkMan(linkmanId) {
         const req = request({
             method: 'delete',
-            url: `/dev-api/linkman?linkmanId=${linkmanId}`
+            url: `/linkman?linkmanId=${linkmanId}`
         })
         return req
     },
@@ -20,7 +20,7 @@ export default {
     updateLinkMan(linkman) {
         const req = request({
             method: 'put',
-            url: `/dev-api/linkman`,
+            url: `/linkman`,
             data: linkman
         })
         return req
@@ -29,7 +29,7 @@ export default {
     addLinkMan(linkman) {
         const req = request({
             method: 'post',
-            url: `/dev-api/linkman/addLinkman`,
+            url: `/linkman/addLinkman`,
             data: linkman
         })
         return req
