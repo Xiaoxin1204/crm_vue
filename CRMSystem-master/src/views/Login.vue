@@ -23,26 +23,42 @@
                       style="font-weight:bolder; font-size:larger; marginTop: 80px; margin-bottom: 30px"
                     >登录</h3>
 
-                    <el-form-item prop="id" v-show="account">
+                    <el-form-item prop="id" v-if="account">
                       <el-input type="text" v-model="LoginForm.id" placeholder="请输入您的账号"></el-input>
                     </el-form-item>
 
-                    <el-form-item prop="pwd" v-show="account">
+                    <el-form-item prop="pwd" v-if="account">
                       <el-input type="password" v-model="LoginForm.pwd" placeholder="请输入您的密码"></el-input>
                     </el-form-item>
 
-                    <el-form-item prop="id" v-show="phone">
-                      <el-input type="text" v-model="LoginForm.id" placeholder="请输入您的电话号码"></el-input>
+                    <el-form-item prop="tel" v-if="phone">
+                      <el-input type="text" v-model="LoginForm.tel" placeholder="请输入您的电话号码"></el-input>
                     </el-form-item>
 
-                    <el-form-item prop="pwd" v-show="phone">
+                    <el-form-item prop="sms" v-if="phone">
                       <el-input
                         style="width: 65%;"
                         type="password"
-                        v-model="LoginForm.pwd"
+                        v-model="LoginForm.sms"
                         placeholder="请输入您的验证码"
                       ></el-input>
-                      <el-button type="danger" class="code" style="padding-left: 15px;" round>获取验证码</el-button>
+                      <el-button
+                        type="danger"
+                        class="code"
+                        style="padding-left: 15px;"
+                        round
+                        @click="sendSms"
+                        v-show="time == 0"
+                      >获取验证码</el-button>
+                      <el-button
+                        type="danger"
+                        class="code"
+                        style="padding-left: 15px;"
+                        round
+                        @click="sendSms"
+                        v-show="time != 0"
+                        disabled
+                      >{{time}}s 后重发</el-button>
                     </el-form-item>
 
                     <el-form-item>
@@ -68,6 +84,7 @@
                     </el-form-item>
 
                     <el-form-item>
+                      <el-alert :title="msg" type="error" center show-icon v-show="error"></el-alert>
                       <el-divider></el-divider>
                       <el-button round class="create" @click="toregin">创建新企业</el-button>
                     </el-form-item>
@@ -87,6 +104,7 @@
 </template>
 
 <script>
+import loginApi from "@/api/login";
 export default {
   // ....
   data() {
@@ -104,10 +122,23 @@ export default {
       account: true,
       phone: false,
       activeName: "first",
+      //倒计时
+      timer: null,
+      time: 0,
+      //验证码
+      code: "",
+      //登录表单
       LoginForm: {
         id: "",
-        pwd: ""
+        pwd: "",
+        tel: "",
+        sms: ""
       },
+      //错误提示
+      msg: "",
+      error: false,
+      //权限
+      right: "",
       rule: {
         id: [
           {
@@ -125,6 +156,23 @@ export default {
             trigger: "blur",
             validator: validatePass
           }
+        ],
+        tel: [
+          {
+            required: true,
+            max: 11,
+            min: 11,
+            message: "电话号码是必须的，长度为11位",
+            trigger: "blur"
+          }
+        ],
+        sms: [
+          {
+            required: true,
+            message: "验证码是必须的！",
+            trigger: "blur",
+            validator: validatePass
+          }
         ]
       },
 
@@ -134,7 +182,31 @@ export default {
   methods: {
     // 提交表单
     submit(formName) {
-      this.$router.push("/Home");
+      if (this.account) {
+        loginApi.loginByPassword(this.LoginForm).then(Response => {
+          console.log();
+          if (Response.data == "success") {
+            this.$router.push("/Home");
+          } else {
+            this.error = true;
+            this.msg = "账号或密码输入错误！请重新输入";
+          }
+        });
+      } else {
+        if (this.LoginForm.sms == this.code) {
+          loginApi.loginByTel(this.LoginForm.tel).then(Response => {
+            this.right = Response.data;
+            console.log("用户权限：", this.right);
+            if (this.right == 3) {
+              this.$router.push("/Register");
+            }
+            this.$router.push("/Home");
+          });
+        } else {
+          this.msg = "验证码输入错误，请重新输入！"
+          this.error = true
+        }
+      }
       // this.$refs[formName].validate(valid => {
       //   if (valid) {
       //     axios
@@ -192,12 +264,29 @@ export default {
     },
     // 点击切换登录方式
     switchs() {
+      this.error = false;
       if (this.account) {
-        this.account = false
-        this.phone = true
+        this.account = false;
+        this.phone = true;
       } else {
-        this.account = true
-        this.phone = false
+        this.account = true;
+        this.phone = false;
+      }
+    },
+    //发送验证码到手机
+    sendSms() {
+      loginApi.sendSms(this.LoginForm.tel).then(Response => {
+        console.log(Response.data);
+        this.code = Response.data;
+      });
+      this.time = 60;
+      this.timer = setInterval(this.countDown, 1000);
+    },
+    //倒计时
+    countDown() {
+      this.time--;
+      if (this.time == 0) {
+        clearInterval(this.timer);
       }
     }
   }
