@@ -97,7 +97,7 @@
       </el-main>
 
       <el-footer style="marginTop:30px">
-        <el-divider content-position="center">Copyright @ 东软客户关系管理系统</el-divider>
+        <el-divider content-position="center">Copyright @ 软工帮扶客户关系管理系统</el-divider>
       </el-footer>
     </el-container>
   </div>
@@ -105,6 +105,7 @@
 
 <script>
 import loginApi from "@/api/login";
+
 export default {
   // ....
   data() {
