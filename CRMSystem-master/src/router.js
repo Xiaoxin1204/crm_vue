@@ -9,6 +9,7 @@ import CustomerConstructAnalysis from "./components/CustomerConstructAnalysis.vu
 import CustomerContributeAnalysis from "./components/CustomerContributeAnalysis.vue"
 import CustomerDevelopmentPlan from "./components/CustomerDevelopmentPlan.vue"
 import CustomerInfoManagement from "./components/CustomerInfoManagement.vue"
+import CustomerInternationalSea from "./components/CustomerInternationalSea.vue"
 import CustomerLoseAnalysis from "./components/CustomerLoseAnalysis.vue"
 import CustomerLoseManagement from "./components/CustomerLoseManagement.vue"
 import CustomerServeAnalysis from "./components/CustomerServeAnalysis.vue"
@@ -64,6 +65,11 @@ export default new Router({
           path:"CustomerInfoManagement/:id",
           name:"CustomerInfoManagement",
           component: CustomerInfoManagement
+        },
+        {
+          path:"CustomerInternationalSea",
+          name:"CustomerInternationalSea",
+          component: CustomerInternationalSea
         },
         {
           path:"CustomerLoseAnalysis",

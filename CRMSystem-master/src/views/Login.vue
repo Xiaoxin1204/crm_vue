@@ -139,7 +139,6 @@ export default {
       msg: "",
       error: false,
       //权限
-      right: "",
       rule: {
         id: [
           {
@@ -196,9 +195,10 @@ export default {
       } else {
         if (this.LoginForm.sms == this.code) {
           loginApi.loginByTel(this.LoginForm.tel).then(Response => {
-            this.right = Response.data;
-            console.log("用户权限：", this.right);
-            if (this.right == 3) {
+            console.log("未赋值前的权限值为", this.userRight);
+            this.userRight = Response.data;
+            console.log("用户权限：", this.userRight);
+            if (this.userRight == 3) {
               this.$router.push("/Register");
             }
             this.$router.push("/Home");

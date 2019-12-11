@@ -216,12 +216,20 @@
         <!-- 卡片头部 -->
         <div slot="header" class="clearfix">
           <el-row style="height:40px">
-            <el-col :span="18">
+            <el-col :span="16">
               <div
                 style="font-size:20px; text-align:left; color:#000000; margin:10px 0px 0px 10px"
               >客户列表</div>
             </el-col>
 
+            <el-col :span="2">
+              <el-button
+                style="float: right; padding: 3px 0 ; height:40px; text-align:center"
+                type="text"
+                icon="el-icon-download"
+                @click="toHighSea()"
+              >放入公海</el-button>
+            </el-col>
             <el-col :span="2">
               <el-button
                 style="float: right; padding: 3px 0 ; height:40px; text-align:center"
@@ -276,7 +284,12 @@
 
           <el-table-column property="createTime" label="创建时间" align="center"></el-table-column>
 
-          <el-table-column property="state" label="成交状态" align="center"></el-table-column>
+          <el-table-column label="成交状态" align="center">
+            <template slot-scope="scope">
+              <p v-if="scope.row.state == '1'">正在执行</p>
+              <p v-if="scope.row.state == '3'">成交</p>
+            </template>
+          </el-table-column>
 
           <el-table-column label="查看客户详细信息" align="center">
             <template slot-scope="scope">
@@ -529,7 +542,7 @@ export default {
           //   console.log(item);
           // });
           // console.log(this.marketingOpportunityListData)
-          history.go(0)
+          history.go(0);
         });
       });
     },
@@ -572,6 +585,12 @@ export default {
     // 重置表单
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    //放入公海
+    toHighSea() {
+      customerApi.toHighSeas(this.tableChecked[0].id).then(Response => {
+        console.log("放入公海成功！")
+      })
     }
   },
   watch: {

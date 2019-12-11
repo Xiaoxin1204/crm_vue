@@ -46,4 +46,28 @@ export default {
         })
         return req
     },
+
+    findCustomerInSeas() {
+        const req = request({
+            method: 'get',
+            url: `/customer/findCustomerInSeas`
+        })
+        return req
+    },
+
+    toHighSeas(customerId) {
+        const req = request({
+            method: 'get',
+            url: `/customer/toHighSeas?customerId=${customerId}`
+        })
+        return req
+    },
+
+    receiveCustomer(customerId) {
+        const req = request({
+            method: 'get',
+            url: `/customer/receiveCustomer?customerId=${customerId}`
+        })
+        return req
+    },
 }
