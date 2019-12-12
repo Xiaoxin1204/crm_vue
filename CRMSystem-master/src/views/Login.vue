@@ -193,7 +193,7 @@ export default {
             console.log("未赋值前的权限值为", this.userRight);
             this.userRight = Response.data;
             console.log("用户权限：", this.userRight);
-            this.$router.push("/Home");
+            this.$router.push("/Home");guanhuai
           }
         });
       } else {

@@ -83,18 +83,28 @@
 
           <el-table-column property="birthday" label="生日" align="center"></el-table-column>
 
-          <el-table-column property="time" label="关怀时间" align="center"></el-table-column>
+          <el-table-column label="关怀时间" align="center">
+            <template slot-scope="scope">
+              <p v-if="scope.row.time == null">无</p>
+              <p v-else>{{scope.row.time}}</p>
+            </template>
+          </el-table-column>
 
-          <el-table-column property="detail" label="关怀" align="center"></el-table-column>
+          <el-table-column label="方式" align="center">
+            <template slot-scope="scope">
+              <p v-if="scope.row.detail == null">无</p>
+              <p v-else>{{scope.row.detail}}</p>
+            </template>
+          </el-table-column>
 
-          <el-table-column property="days" label="还余(日)" align="center"></el-table-column>
+          <el-table-column property="days" label="距生日(日)" align="center"></el-table-column>
 
           <!-- <el-table-column property="state" label="成交状态" align="center"></el-table-column> -->
 
           <el-table-column label="编辑" align="center">
             <template slot-scope="scope">
               <el-button
-                @click="editMarketingOpportunity(scope.row)"
+                @click="editCustomerCare(scope.row)"
                 icon="el-icon-edit"
                 circle
                 size="small"
@@ -113,6 +123,25 @@
           :total="total"
           class="page"
         ></el-pagination>-->
+
+        <!-- “编辑计划执行情况”对话框 -->
+        <el-dialog :visible.sync="editCareDialogVisible" title="编辑关怀方式">
+          <el-form :model="editFormData" ref="editFormData" label-width="100px">
+            <!-- 计划执行情况 -->
+            <el-form-item label="关怀方式" prop="careDetail">
+              <el-input v-model="editFormData.careDetail"></el-input>
+            </el-form-item>
+            <!-- 提交/重置表单按钮 -->
+            <el-form-item>
+              <el-row>
+                <el-col :span="4" :offset="19">
+                  <el-button type="primary" @click="submitEditPlanForm('')">确定提交</el-button>
+                </el-col>
+              </el-row>
+            </el-form-item>
+          </el-form>
+        </el-dialog>
+
       </el-card>
     </el-row>
   </div>
@@ -131,7 +160,14 @@ export default {
         value: ""
       },
       // 表格数据
-      CustomerCareData: []
+      CustomerCareData: [],
+      // 对话框
+      editCareDialogVisible: false,
+      editFormData: {
+        careDetail: ""
+      },
+      //编辑的id
+      editId: 0
     };
   },
   mounted() {
@@ -148,21 +184,27 @@ export default {
     handleSelectionChange(val) {
       this.tableChecked = val;
     },
-    // 修改营销机会
-    editMarketingOpportunity(row) {
+    // 修改关怀信息
+    editCustomerCare(row) {
       console.log(row);
-      // this.dialogFormVisible = true;
-      // this.$refs.create_marketing_opportunity_dialog.title = "修改营销机会";
-      // PubSub.publish('details-data',{showTag:true})
-      this.$router.push(`/Home/CustomerInfoManagement/` + row.id);
+      this.editId = row.id
+      console.log("编辑的id",this.editId)
+      this.editCareDialogVisible = true;
+      this.editFormData.careDetail = row.detail
     },
     //领取
-    receiveCustomer(){
-        customerApi.receiveCustomer(this.tableChecked[0].id).then(Response => {
-            console.log("领取成功！")
+    receiveCustomer() {
+      customerApi.receiveCustomer(this.tableChecked[0].id).then(Response => {
+        console.log("领取成功！");
+      });
+    },
+    //编辑表单提交
+    submitEditPlanForm() {
+        console.log("提交",this.editId,this.editFormData.careDetail)
+        customerApi.edit(this.editId,this.editFormData.careDetail).then(Response => {
+            this.editCareDialogVisible = false;
         })
     }
-    
   }
 };
 </script>

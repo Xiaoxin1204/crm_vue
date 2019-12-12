@@ -77,5 +77,15 @@ export default {
             url: `/customerCare/queryCare`
         })
         return req
+    },
+
+    //编辑关怀方式
+    edit(id,detail) {
+        const req = request({
+            method: 'get',
+            url: `/customerCare/edit?id=${id}&detail=${detail}`
+        })
+        return req
     }
+
 }
