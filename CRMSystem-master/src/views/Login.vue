@@ -127,7 +127,7 @@ export default {
       timer: null,
       time: 0,
       //验证码
-      code: "",
+      code: "code",
       //登录表单
       LoginForm: {
         id: "",
@@ -185,11 +185,15 @@ export default {
       if (this.account) {
         loginApi.loginByPassword(this.LoginForm).then(Response => {
           console.log();
-          if (Response.data == "success") {
-            this.$router.push("/Home");
-          } else {
+          if (Response.data == 3) {
             this.error = true;
             this.msg = "账号或密码输入错误！请重新输入";
+          } else {
+            this.userRight;
+            console.log("未赋值前的权限值为", this.userRight);
+            this.userRight = Response.data;
+            console.log("用户权限：", this.userRight);
+            this.$router.push("/Home");
           }
         });
       } else {
@@ -204,8 +208,8 @@ export default {
             this.$router.push("/Home");
           });
         } else {
-          this.msg = "验证码输入错误，请重新输入！"
-          this.error = true
+          this.msg = "验证码输入错误，请重新输入！";
+          this.error = true;
         }
       }
       // this.$refs[formName].validate(valid => {

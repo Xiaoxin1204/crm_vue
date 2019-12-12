@@ -19,12 +19,8 @@ export default {
 
     loginByPassword(formData) {
         const req = request({
-            method: 'post',
-            url: `/loginByPassword`,
-            data: {
-                "tel": formData.id,
-                "password": formData.pwd
-            }
+            method: 'get',
+            url: `/loginByPassword?tel=${formData.id}&password=${formData.pwd}`
         })
         return req
     },
