@@ -70,6 +70,7 @@
             <el-menu-item index="/Home/CustomerLoseManagement">客户流失</el-menu-item>
             <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发</el-menu-item>
             <el-menu-item index="/Home/CustomerInternationalSea">客户公海</el-menu-item>
+            <el-menu-item index="/Home/CustomerCare">客户关怀</el-menu-item>
           </el-submenu>
 
           <!-- 服务管理 -->
@@ -132,6 +133,7 @@ overflow-y: scroll;
 
 
 <script>
+import loginApi from "@/api/login";
 export default {
   data() {
     return {
@@ -144,6 +146,7 @@ export default {
   methods: {
     // 退出登录
     logOut() {
+      loginApi.logout()
       console.log("logout success");
       this.$router.push("/");
     }

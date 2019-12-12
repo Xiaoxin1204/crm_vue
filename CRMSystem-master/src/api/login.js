@@ -37,4 +37,12 @@ export default {
         })
         return req
     },
+
+    logout() {
+        const req = request({
+            method: 'get',
+            url: `/logout`
+        })
+        return req
+    }
 }

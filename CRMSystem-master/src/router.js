@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 
 import Console from "./components/Console.vue"
+import CustomerCare from "./components/CustomerCare.vue"
 import CustomerConstructAnalysis from "./components/CustomerConstructAnalysis.vue"
 import CustomerContributeAnalysis from "./components/CustomerContributeAnalysis.vue"
 import CustomerDevelopmentPlan from "./components/CustomerDevelopmentPlan.vue"
@@ -45,6 +46,11 @@ export default new Router({
           path: "Console",
           name: "Console",
           component: Console
+        },
+        {
+          path: "CustomerCare",
+          name: "CustomerCare",
+          component: CustomerCare
         },
         {
           path: "CustomerConstructAnalysis",

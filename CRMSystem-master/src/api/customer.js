@@ -70,4 +70,12 @@ export default {
         })
         return req
     },
+
+    queryCare() {
+        const req = request({
+            method: 'get',
+            url: `/customerCare/queryCare`
+        })
+        return req
+    }
 }
