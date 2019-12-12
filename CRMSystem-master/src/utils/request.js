@@ -3,7 +3,8 @@ import axios from 'axios'
 const request = axios.create({
     // baseURL: '/dev-api',
     baseURL: 'https://bigyue.top/api',
-    timeout: 5000, //  请求超时，毫秒值
+    timeout: 5000, //  请求超时，毫秒值，
+    withCredentials:true
 })
 
 // Add a request interceptor
