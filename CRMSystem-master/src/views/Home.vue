@@ -58,6 +58,15 @@
             <el-menu-item index="/Home/MarketingOpportunityManagement">营销机会管理</el-menu-item>
             <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发计划</el-menu-item>
           </el-submenu> -->
+          <!-- 商机管理 -->
+          <el-submenu index="opportunity_management">
+            <template slot="title">
+              <i class="el-icon-s-platform"></i>
+              <span>商机管理</span>
+            </template>
+            <el-menu-item index="/Home/CustomerOpportunity">商机列表</el-menu-item>
+            <el-menu-item index="/Home/CustomerDevelopmentPlan/-1">客户开发</el-menu-item>
+          </el-submenu>
 
           <!-- 客户管理 -->
           <el-submenu index="customer_management">
@@ -68,7 +77,6 @@
             <el-menu-item index="/Home/MarketingOpportunityManagement">客户列表</el-menu-item>
             <!-- <el-menu-item index="/Home/CustomerInfoManagement">客户信息管理</el-menu-item> -->
             <el-menu-item index="/Home/CustomerLoseManagement">客户流失</el-menu-item>
-            <el-menu-item index="/Home/CustomerDevelopmentPlan">客户开发</el-menu-item>
             <el-menu-item index="/Home/CustomerInternationalSea">客户公海</el-menu-item>
             <el-menu-item index="/Home/CustomerCare">客户关怀</el-menu-item>
           </el-submenu>

@@ -86,6 +86,25 @@ export default {
             url: `/customerCare/edit?id=${id}&detail=${detail}`
         })
         return req
+    },
+
+    //客户商机
+    querySale_opp() {
+        const req = request({
+            method: 'get',
+            url: `/sale_opp/query`
+        })
+        return req
+    },
+
+    //客户商机根据id
+    querySale_oppById(id) {
+        const req = request({
+            method: 'get',
+            url: `/sale_opp/queryById?id=${id}`
+        })
+        return req
     }
+
 
 }

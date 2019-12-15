@@ -24,7 +24,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="客户名称">
-              <el-input v-model="marketingOpportunityInfo.name" :disabled="true"></el-input>
+              <el-input v-model="marketingOpportunityInfo.customerName" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
 
@@ -35,8 +35,8 @@
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="概要">
-              <el-input v-model="marketingOpportunityInfo.digest" :disabled="true"></el-input>
+            <el-form-item label="联系人">
+              <el-input v-model="marketingOpportunityInfo.contactName" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -44,26 +44,26 @@
         <!-- 表单第二行 -->
         <el-row>
           <el-col :span="6">
-            <el-form-item label="联系人">
-              <el-input v-model="marketingOpportunityInfo.contacts" :disabled="true"></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="6">
             <el-form-item label="联系电话">
-              <el-input v-model="marketingOpportunityInfo.contactsTel" :disabled="true"></el-input>
+              <el-input v-model="marketingOpportunityInfo.contactPhone" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="创建人">
-              <el-input v-model="marketingOpportunityInfo.creator" :disabled="true"></el-input>
+            <el-form-item label="成功率(%)">
+              <el-input v-model="marketingOpportunityInfo.success" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
 
           <el-col :span="6">
-            <el-form-item label="指派给">
-              <el-input v-model="marketingOpportunityInfo.designate" :disabled="true"></el-input>
+            <el-form-item label="创建时间">
+              <el-input v-model="marketingOpportunityInfo.createTime" :disabled="true"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="6">
+            <el-form-item label="状态">
+              <el-input v-model="marketingOpportunityInfo.status" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -71,25 +71,17 @@
         <!-- 表单第三行 -->
         <el-row>
           <el-col :span="24">
-            <el-form-item label="机会描述">
-              <el-input
-                type="textarea"
-                v-model="marketingOpportunityInfo.opportunityStatement"
-                :disabled="true"
-              ></el-input>
+            <el-form-item label="机会概要">
+              <el-input type="textarea" v-model="marketingOpportunityInfo.general" :disabled="true"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <!-- 表单第四行 -->
         <el-row>
-          <el-col :span="6">
-            <el-form-item label="创建时间">
-              <el-input v-model="marketingOpportunityInfo.createDate" :disabled="true"></el-input>
-            </el-form-item>
-          </el-col>
+          <el-col :span="6"></el-col>
 
-          <el-col :span="6" :offset="12">
+          <el-col :span="6" :offset="18">
             <el-button
               style="float: right"
               type="primary"
@@ -239,12 +231,12 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    
   </div>
 </template>
 
 
 <script>
+import customerApi from "@/api/customer";
 export default {
   data() {
     return {
@@ -255,17 +247,7 @@ export default {
       },
 
       //表单变量
-      marketingOpportunityInfo: {
-        name: "",
-        source: "",
-        digest: "",
-        contacts: "",
-        contactsTel: "",
-        creator: "",
-        designate: "",
-        opportunityStatement: "",
-        createDate: ""
-      },
+      marketingOpportunityInfo: {},
 
       //表格内容
       customerDevelopmentPlanListData: [
@@ -333,6 +315,15 @@ export default {
         situation: ""
       }
     };
+  },
+  mounted() {
+    if (this.$route.params.id != -1) {
+      customerApi.querySale_oppById(this.$route.params.id).then(Response => {
+        this.marketingOpportunityInfo = Response.data;
+      });
+    } else {
+      this.marketingOpportunityInfo = {};
+    }
   },
 
   methods: {
@@ -404,7 +395,7 @@ export default {
     },
     resetEditPlanForm(formName) {
       this.$refs[formName].resetFields();
-    },
+    }
   }
 };
 </script>
