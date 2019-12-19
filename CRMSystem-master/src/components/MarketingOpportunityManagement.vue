@@ -16,7 +16,7 @@
           <el-select
             v-model="selectKey.type"
             slot="prepend"
-            placeholder="查询类型"
+            placeholder="查询类型" 
             style="width: 130px; "
           >
             <el-option label="公司名称" value="公司名称"></el-option>

@@ -134,7 +134,11 @@
     </el-row>
 
     <!-- “创建/修改营销”弹出框 -->
-    <el-dialog ref="create_marketing_opportunity_dialog" :visible.sync="dialogFormVisible" width="30%">
+    <el-dialog
+      ref="create_marketing_opportunity_dialog"
+      :visible.sync="dialogFormVisible"
+      width="30%"
+    >
       <el-form
         :model="creatingMarketingOpportunityForm"
         :rules="rules"
@@ -142,25 +146,48 @@
         label-width="100px"
       >
         <!-- 选择客户 -->
-        <el-popover placement="bottom-start" width="600" trigger="click">
+        <el-popover placement="bottom-start" width="600" trigger="click" v-model="popVisible">
           <!-- 显示样式 -->
-          <div style="font-size:18px; text-align:left; color:#000000; margin:10px 0px 0px 10px">商机列表</div>
+          <div style="font-size:18px; text-align:left; color:#000000; margin:10px 0px 0px 10px">客户列表</div>
           <el-divider></el-divider>
           <el-table
             ref="singleTable"
             :data="gridData"
-            highlight-current-row
-            @current-change="handleCurrentChange"
+            tooltip-effect="dark"
             style="width: 100%"
+            @selection-change="handleSelectionChange"
           >
-            <el-table-column type="index" width="50"></el-table-column>
-            <el-table-column property="date" label="日期" width="120"></el-table-column>
-            <el-table-column property="name" label="姓名" width="120"></el-table-column>
-            <el-table-column property="address" label="地址"></el-table-column>
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column label="日期" width="120">
+              <template slot-scope="scope">{{ scope.row.compName }}</template>
+            </el-table-column>
+            <el-table-column prop="contactName" label="姓名" width="120"></el-table-column>
+            <el-table-column prop="tel" label="地址" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="createTime" label="地址" show-overflow-tooltip></el-table-column>
           </el-table>
+          <div style="margin-top: 20px">
+            <el-button>上一页</el-button>
+            <el-button>下一页</el-button>
+          </div>
+          <el-divider></el-divider>
+          <div style="margin-top: 20px;margin-left:70%;">
+            <el-button type="primary" @click="submitPop">确定</el-button>
+            <el-button @click="popVisible = false">取消</el-button>
+          </div>
+
           <!-- 触发按钮 -->
           <el-form-item slot="reference" label="选择客户" prop="customerName">
-            <el-input v-model="creatingMarketingOpportunityForm.customerName"></el-input>
+            <!-- <el-input v-model="creatingMarketingOpportunityForm.customerName"></el-input> -->
+            <div class="pop_input">
+              <el-tag
+                v-for="tag in tags"
+                :key="tag.name"
+                closable
+                :type="tag.type"
+                @close="handleClose(tag)"
+              >{{tag.name}}</el-tag>
+            </div>
+            <p class="popWarning" v-if="tags.length == 0">请填写客户</p>
           </el-form-item>
         </el-popover>
 
@@ -172,11 +199,6 @@
         <!-- 成功几率 -->
         <el-form-item label="成功几率" prop="odds" placeholder="请填入0-100的百分值（%）">
           <el-input v-model.number="creatingMarketingOpportunityForm.odds"></el-input>
-        </el-form-item>
-
-        <!-- 概要 -->
-        <el-form-item label="概要" prop="digest">
-          <el-input v-model="creatingMarketingOpportunityForm.digest"></el-input>
         </el-form-item>
 
         <!-- 联系人 -->
@@ -197,10 +219,10 @@
         <!-- 提交/重置表单按钮 -->
         <el-form-item>
           <el-row>
-            <el-col :span="4" :offset="15">
+            <el-col :span="4" :offset="12">
               <el-button type="primary" @click="submitForm('creatingMarketingOpportunityForm')">确定提交</el-button>
             </el-col>
-            <el-col :span="4" :offset="1">
+            <el-col :span="4" :offset="2">
               <el-button @click="resetForm('creatingMarketingOpportunityForm')">重置表单</el-button>
             </el-col>
           </el-row>
@@ -220,26 +242,33 @@ export default {
       //测试数据
       gridData: [
         {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          compName: "阿里巴巴",
+          contactName: "李先生",
+          tel: "17857309089",
+          createTime: "2019-12-13 17:47:44"
         },
         {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          compName: "万达集团",
+          contactName: "李先生",
+          tel: "17857309089",
+          createTime: "2019-12-13 17:47:44"
         },
         {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          compName: "京东",
+          contactName: "李先生",
+          tel: "17857309089",
+          createTime: "2019-12-13 17:47:44"
         },
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          compName: "苏宁",
+          contactName: "金先生",
+          tel: "17857309089",
+          createTime: "2019-12-13 17:47:44"
         }
       ],
+      popVisible: false,
+      tags: [{ name: "阿里巴巴", type: "" }],
+      popWarn: false,
       // 批量删除
       tableChecked: [],
       customerId: 0,
@@ -327,6 +356,13 @@ export default {
     };
   },
   methods: {
+    //pop弹出框
+    submitPop() {
+      this.popVisible = false;
+    },
+    handleClose(tag) {
+      this.tags.splice(this.tags.indexOf(tag), 1);
+    },
     //提交新客户
     submitCreateNewCustomerForm() {
       customerApi.addCustomer(this.customerInfoData).then(response => {
@@ -350,7 +386,7 @@ export default {
     creatingMarketingOpportunity() {
       this.dialogFormVisible = true;
       this.$refs.create_marketing_opportunity_dialog.title = "创建营销机会";
-    //   this.$refs.pop.style["left"] = "900px";
+      //   this.$refs.pop.style["left"] = "900px";
     },
 
     // 表格--------------------------------------------------------
@@ -457,6 +493,18 @@ export default {
 <style scoped>
 .page {
   margin-top: 2%;
+}
+.pop_input {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+}
+.popWarning {
+  position: fixed;
+  margin-top: -10px;
+  color: #f56c6c;
+  font-size: 12px;
 }
 </style>
 
