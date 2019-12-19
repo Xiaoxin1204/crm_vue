@@ -97,7 +97,7 @@
       </el-main>
 
       <el-footer style="marginTop:30px">
-        <el-divider content-position="center">Copyright @ 软工帮扶客户关系管理系统</el-divider>
+        <el-divider content-position="center"> © 2019 软工CRM <a href="http://www.beian.miit.gov.cn">浙ICP备19046690号-1</a></el-divider>
       </el-footer>
     </el-container>
   </div>
