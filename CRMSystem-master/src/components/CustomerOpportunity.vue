@@ -139,12 +139,7 @@
       :visible.sync="dialogFormVisible"
       width="30%"
     >
-      <el-form
-        :model="creatingMarketingOpportunityForm"
-        :rules="rules"
-        ref="creatingMarketingOpportunityForm"
-        label-width="100px"
-      >
+      <el-form :model="creatingOpportunityForm" ref="creatingOpportunityForm" label-width="100px">
         <!-- 选择客户 -->
         <el-popover placement="bottom-start" width="600" trigger="click" v-model="popVisible">
           <!-- 显示样式 -->
@@ -176,7 +171,7 @@
           </div>
 
           <!-- 触发按钮 -->
-          <el-form-item slot="reference" label="选择客户" prop="customerName">
+          <el-form-item slot="reference" label="选择客户">
             <!-- <el-input v-model="creatingMarketingOpportunityForm.customerName"></el-input> -->
             <div class="pop_input">
               <el-tag
@@ -192,38 +187,38 @@
         </el-popover>
 
         <!-- 机会来源 -->
-        <el-form-item label="机会来源" prop="source">
-          <el-input v-model="creatingMarketingOpportunityForm.source"></el-input>
+        <el-form-item label="机会来源">
+          <el-input v-model="creatingOpportunityForm.source"></el-input>
         </el-form-item>
 
         <!-- 成功几率 -->
-        <el-form-item label="成功几率" prop="odds" placeholder="请填入0-100的百分值（%）">
-          <el-input v-model.number="creatingMarketingOpportunityForm.odds"></el-input>
+        <el-form-item label="成功几率" placeholder="请填入0-100的百分值（%）">
+          <el-input v-model.number="creatingOpportunityForm.success"></el-input>
         </el-form-item>
 
         <!-- 联系人 -->
-        <el-form-item label="联系人" prop="contacts">
-          <el-input v-model="creatingMarketingOpportunityForm.contacts"></el-input>
+        <el-form-item label="联系人">
+          <el-input v-model="creatingOpportunityForm.contactName"></el-input>
         </el-form-item>
 
         <!-- 联系人电话 -->
-        <el-form-item label="联系人电话" prop="contactsTel">
-          <el-input v-model.number="creatingMarketingOpportunityForm.contactsTel"></el-input>
+        <el-form-item label="联系人电话">
+          <el-input v-model.number="creatingOpportunityForm.contactPhone"></el-input>
         </el-form-item>
 
         <!-- 机会概要 -->
-        <el-form-item label="机会概要" prop="opportunityStatement">
-          <el-input type="textarea" v-model="creatingMarketingOpportunityForm.opportunityStatement"></el-input>
+        <el-form-item label="机会概要">
+          <el-input type="textarea" v-model="creatingOpportunityForm.general"></el-input>
         </el-form-item>
 
         <!-- 提交/重置表单按钮 -->
         <el-form-item>
           <el-row>
             <el-col :span="4" :offset="12">
-              <el-button type="primary" @click="submitForm('creatingMarketingOpportunityForm')">确定提交</el-button>
+              <el-button type="primary" @click="submitForm()">确定提交</el-button>
             </el-col>
             <el-col :span="4" :offset="2">
-              <el-button @click="resetForm('creatingMarketingOpportunityForm')">重置表单</el-button>
+              <el-button @click="resetForm('creatingOpportunityForm')">重置表单</el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -240,34 +235,9 @@ export default {
   data() {
     return {
       //测试数据
-      gridData: [
-        {
-          compName: "阿里巴巴",
-          contactName: "李先生",
-          tel: "17857309089",
-          createTime: "2019-12-13 17:47:44"
-        },
-        {
-          compName: "万达集团",
-          contactName: "李先生",
-          tel: "17857309089",
-          createTime: "2019-12-13 17:47:44"
-        },
-        {
-          compName: "京东",
-          contactName: "李先生",
-          tel: "17857309089",
-          createTime: "2019-12-13 17:47:44"
-        },
-        {
-          compName: "苏宁",
-          contactName: "金先生",
-          tel: "17857309089",
-          createTime: "2019-12-13 17:47:44"
-        }
-      ],
+      gridData: [],
       popVisible: false,
-      tags: [{ name: "阿里巴巴", type: "" }],
+      tags: [],
       popWarn: false,
       // 批量删除
       tableChecked: [],
@@ -275,29 +245,13 @@ export default {
       // “新建客户/修改客户信息”弹出框显示控制
       create_marketing_opportunity_dialog: false,
       // 客户基本信息表单
-      creatingMarketingOpportunityForm: {
-        id: 0,
-        compName: "",
-        type: "",
+      creatingOpportunityForm: {
+        customerId: 0,
+        source: "",
+        success: "",
         contactName: "",
-        tel: "",
-        state: 0,
-        empId: 0,
-        compId: 0,
-        serialNumber: "",
-        createTime: "",
-        area: "",
-        compAddress: "",
-        level: "",
-        credit: 0,
-        licenseNumber: "",
-        corporation: "",
-        registerMoney: "",
-        annualSale: "",
-        landTaxNumber: "",
-        nationalTaxNumber: "",
-        depositBank: "",
-        bankAccount: ""
+        contactPhone: "",
+        general: ""
       },
       //分页数据
       currentPage: 1,
@@ -311,53 +265,44 @@ export default {
         value: ""
       },
       // “创建营销”弹出框是否可见
-      dialogFormVisible: false,
+      dialogFormVisible: false
       // "创建营销"表单（修改字段名时主义将“rules”的字段名一起修改）
-      creatingMarketingOpportunityForm: {
-        name: "",
-        source: "",
-        odds: "",
-        digest: "",
-        contacts: "",
-        contactsTel: "",
-        opportunityStatement: "",
-        designate: ""
-      },
-      rules: {
-        customerName: [
-          { required: true, message: "请填写客户名称", trigger: "blur" }
-        ],
-        name: [
-          { required: true, message: "请输入客户名称", trigger: "blur" },
-          { min: 3, max: 16, message: "长度在 3 到 16 个字符", trigger: "blur" }
-        ],
-        source: [
-          { required: true, message: "请填写机会来源", trigger: "blur" }
-        ],
-        odds: [
-          { required: true, message: "请填写成功几率", trigger: "blur" },
-          { type: "number", message: "几率值必须为数字(%)" }
-        ],
-        digest: [{ required: true, message: "请填写概要", trigger: "blur" }],
-        contacts: [
-          { required: true, message: "请填写联系人", trigger: "blur" }
-        ],
-        contactsTel: [
-          { required: true, message: "请填写联系人电话", trigger: "blur" },
-          { length: 11, type: "number", message: "联系方式必须为11位数字" }
-        ],
-        opportunityStatement: [
-          { required: true, message: "请填写机会描述", trigger: "blur" }
-        ],
-        designate: [
-          { required: true, message: "请指派此次营销负责人", trigger: "change" }
-        ]
-      }
+      // rules: {
+      //   name: [
+      //     { required: true, message: "请输入客户名称", trigger: "blur" },
+      //     { min: 3, max: 16, message: "长度在 3 到 16 个字符", trigger: "blur" }
+      //   ],
+      //   source: [
+      //     { required: true, message: "请填写机会来源", trigger: "blur" }
+      //   ],
+      //   success: [
+      //     { required: true, message: "请填写成功几率", trigger: "blur" }
+      //   ],
+      //   general: [{ required: true, message: "请填写概要", trigger: "blur" }],
+      //   contactName: [
+      //     { required: true, message: "请填写联系人", trigger: "blur" }
+      //   ],
+      //   contactPhone: [
+      //     { required: true, message: "请填写联系人电话", trigger: "blur" },
+      //     { length: 11, type: "number", message: "联系方式必须为11位数字" }
+      //   ],
+      //   opportunityStatement: [
+      //     { required: true, message: "请填写机会描述", trigger: "blur" }
+      //   ],
+      //   designate: [
+      //     { required: true, message: "请指派此次营销负责人", trigger: "change" }
+      //   ]
+      // }
     };
   },
   methods: {
     //pop弹出框
     submitPop() {
+      this.tags.push({
+        name: this.tableChecked[0].compName,
+        type: ""
+      });
+      this.creatingOpportunityForm.customerId = this.tableChecked[0].id;
       this.popVisible = false;
     },
     handleClose(tag) {
@@ -398,6 +343,7 @@ export default {
     // 表单行的选择状态发生改变时触发
     handleSelectionChange(val) {
       this.tableChecked = val;
+      console.log(this.tableChecked);
     },
     // 批量删除
     deleteInBatches() {
@@ -448,27 +394,35 @@ export default {
     // “创建营销”弹出框-------------------------------------------------
     // 提交表单
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          // 提交成功
-          this.dialogFormVisible = false;
-          this.$refs[formName].resetFields();
-        } else {
-          // 无效提交
-          console.log("error submit!!");
-          return false;
-        }
+      // this.$refs[formName].validate(valid => {
+      //   if (valid) {
+      //     // 提交成功
+      //     this.dialogFormVisible = false;
+      //     console.log("提交成功",this.creatingOpportunityForm)
+      //     //重置
+      //     this.$refs[formName].resetFields();
+      //   } else {
+      //     // 无效提交
+      //     console.log("error submit!!");
+      //     return false;
+      //   }
+      // });
+
+      // 提交成功
+      this.dialogFormVisible = false;
+      customerApi.addSaleOpp(this.creatingOpportunityForm).then(Response => {
+        console.log("提交成功", this.creatingOpportunityForm);
+        this.creatingOpportunityForm = {};
+        customerApi.querySale_opp().then(response => {
+          this.OpportunityListData = response.data;
+          this.total = response.data.total;
+          console.log("重新查询商机列表", this.OpportunityListData);
+        });
       });
     },
     // 重置表单
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-    //放入公海
-    toHighSea() {
-      customerApi.toHighSeas(this.tableChecked[0].id).then(Response => {
-        console.log("放入公海成功！");
-      });
     }
   },
   watch: {
@@ -485,6 +439,9 @@ export default {
       this.OpportunityListData = response.data;
       this.total = response.data.total;
       console.log("OpportunityListData", this.OpportunityListData);
+    });
+    customerApi.getList(1).then(response => {
+      this.gridData = response.data.items;
     });
   }
 };

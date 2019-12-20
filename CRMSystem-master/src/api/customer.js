@@ -104,6 +104,16 @@ export default {
             url: `/sale_opp/queryById?id=${id}`
         })
         return req
+    },
+
+    //客户商机添加
+    addSaleOpp(sale_opp) {
+        const req = request({
+            method: 'post',
+            url: `/sale_opp/addSaleOpp`,
+            data: sale_opp
+        })
+        return req
     }
 
 
