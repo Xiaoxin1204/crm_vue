@@ -8,7 +8,7 @@
             <el-card>
               <el-row>
                 <el-col :span="18">
-                  <el-image :src="imageUrl" style="height:500px" :fit="cover"></el-image>
+                  <el-image :src="imageUrl" style="height:600px" :fit="cover"></el-image>
                 </el-col>
 
                 <el-col :span="5" :offset="1">
@@ -96,7 +96,7 @@
         </el-row>
       </el-main>
 
-      <el-footer style="marginTop:30px">
+      <el-footer style="marginTop:150px">
         <el-divider content-position="center"> © 2019 软工CRM <a href="http://www.beian.miit.gov.cn">浙ICP备19046690号-1</a></el-divider>
       </el-footer>
     </el-container>

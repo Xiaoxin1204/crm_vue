@@ -139,7 +139,12 @@
       :visible.sync="dialogFormVisible"
       width="30%"
     >
-      <el-form :model="creatingOpportunityForm" ref="creatingOpportunityForm" label-width="100px">
+      <el-form
+        :model="creatingOpportunityForm"
+        ref="creatingOpportunityForm"
+        label-width="100px"
+        :rules="rules"
+      >
         <!-- 选择客户 -->
         <el-popover placement="bottom-start" width="600" trigger="click" v-model="popVisible">
           <!-- 显示样式 -->
@@ -187,27 +192,27 @@
         </el-popover>
 
         <!-- 机会来源 -->
-        <el-form-item label="机会来源">
+        <el-form-item label="机会来源" prop="source">
           <el-input v-model="creatingOpportunityForm.source"></el-input>
         </el-form-item>
 
         <!-- 成功几率 -->
-        <el-form-item label="成功几率" placeholder="请填入0-100的百分值（%）">
+        <el-form-item label="成功几率" placeholder="请填入0-100的百分值（%）" prop="success">
           <el-input v-model.number="creatingOpportunityForm.success"></el-input>
         </el-form-item>
 
         <!-- 联系人 -->
-        <el-form-item label="联系人">
+        <el-form-item label="联系人" prop="contactName">
           <el-input v-model="creatingOpportunityForm.contactName"></el-input>
         </el-form-item>
 
         <!-- 联系人电话 -->
-        <el-form-item label="联系人电话">
+        <el-form-item label="联系人电话" prop="contactPhone">
           <el-input v-model.number="creatingOpportunityForm.contactPhone"></el-input>
         </el-form-item>
 
         <!-- 机会概要 -->
-        <el-form-item label="机会概要">
+        <el-form-item label="机会概要" prop="general">
           <el-input type="textarea" v-model="creatingOpportunityForm.general"></el-input>
         </el-form-item>
 
@@ -215,7 +220,7 @@
         <el-form-item>
           <el-row>
             <el-col :span="4" :offset="12">
-              <el-button type="primary" @click="submitForm()">确定提交</el-button>
+              <el-button type="primary" @click="submitForm('creatingOpportunityForm')">确定提交</el-button>
             </el-col>
             <el-col :span="4" :offset="2">
               <el-button @click="resetForm('creatingOpportunityForm')">重置表单</el-button>
@@ -265,34 +270,28 @@ export default {
         value: ""
       },
       // “创建营销”弹出框是否可见
-      dialogFormVisible: false
+      dialogFormVisible: false,
       // "创建营销"表单（修改字段名时主义将“rules”的字段名一起修改）
-      // rules: {
-      //   name: [
-      //     { required: true, message: "请输入客户名称", trigger: "blur" },
-      //     { min: 3, max: 16, message: "长度在 3 到 16 个字符", trigger: "blur" }
-      //   ],
-      //   source: [
-      //     { required: true, message: "请填写机会来源", trigger: "blur" }
-      //   ],
-      //   success: [
-      //     { required: true, message: "请填写成功几率", trigger: "blur" }
-      //   ],
-      //   general: [{ required: true, message: "请填写概要", trigger: "blur" }],
-      //   contactName: [
-      //     { required: true, message: "请填写联系人", trigger: "blur" }
-      //   ],
-      //   contactPhone: [
-      //     { required: true, message: "请填写联系人电话", trigger: "blur" },
-      //     { length: 11, type: "number", message: "联系方式必须为11位数字" }
-      //   ],
-      //   opportunityStatement: [
-      //     { required: true, message: "请填写机会描述", trigger: "blur" }
-      //   ],
-      //   designate: [
-      //     { required: true, message: "请指派此次营销负责人", trigger: "change" }
-      //   ]
-      // }
+      rules: {
+        source: [
+          { required: true, message: "请输入来源名称", trigger: "blur" }
+        ],
+        success: [
+          { required: true, message: "请输入成功率概率", trigger: "blur" },
+          { type: "number", message: "概率必须为数字值" },
+          { min: 0, max: 99, type: "number", message: "概率的范围要在0~99之间" }
+        ],
+        contactName: [
+          { required: true, message: "请输入联系人名称", trigger: "blur" }
+        ],
+        contactPhone: [
+          { required: true, message: "请填写联系人电话", trigger: "blur" },
+          { length: 11, type: "number", message: "联系方式必须为11位数字" }
+        ],
+        general: [
+          { required: true, message: "请输入概要信息", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
@@ -394,30 +393,25 @@ export default {
     // “创建营销”弹出框-------------------------------------------------
     // 提交表单
     submitForm(formName) {
-      // this.$refs[formName].validate(valid => {
-      //   if (valid) {
-      //     // 提交成功
-      //     this.dialogFormVisible = false;
-      //     console.log("提交成功",this.creatingOpportunityForm)
-      //     //重置
-      //     this.$refs[formName].resetFields();
-      //   } else {
-      //     // 无效提交
-      //     console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
-
-      // 提交成功
-      this.dialogFormVisible = false;
-      customerApi.addSaleOpp(this.creatingOpportunityForm).then(Response => {
-        console.log("提交成功", this.creatingOpportunityForm);
-        this.creatingOpportunityForm = {};
-        customerApi.querySale_opp().then(response => {
-          this.OpportunityListData = response.data;
-          this.total = response.data.total;
-          console.log("重新查询商机列表", this.OpportunityListData);
-        });
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          // 提交成功
+          this.dialogFormVisible = false;
+          customerApi
+            .addSaleOpp(this.creatingOpportunityForm)
+            .then(Response => {
+              console.log("提交成功", this.creatingOpportunityForm);
+              this.creatingOpportunityForm = {};
+              customerApi.querySale_opp().then(response => {
+                this.OpportunityListData = response.data;
+                this.total = response.data.total;
+                console.log("重新查询商机列表", this.OpportunityListData);
+              });
+            });
+        } else {
+          console.log("error submit!!", valid);
+          return false;
+        }
       });
     },
     // 重置表单

@@ -363,6 +363,12 @@
                 <el-table-column property="state" label="状态" align="center"></el-table-column>
 
                 <el-table-column label="查看详情" align="center">
+                  <template>
+                    <a target="_blank" href="https://bigyue.top/file/%E5%90%88%E5%90%8C.pdf">查看合同</a>
+                  </template>
+                </el-table-column>
+
+                <el-table-column label="查看详情" align="center">
                   <template slot-scope="scope">
                     <el-button
                       @click="viewHistoryOrderDetails(scope.row)"
@@ -1120,3 +1126,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+a {
+  margin-left: 5px;
+  color: #8d5656;
+}
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+</style>

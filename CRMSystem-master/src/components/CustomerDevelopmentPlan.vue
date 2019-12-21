@@ -89,6 +89,113 @@
               @click="completeDevelopment()"
             >完成此次营销 / 开发成功</el-button>
           </el-col>
+
+          <!-- “完成此次营销 / 开发成功”弹出框 -->
+          <el-dialog
+            ref="complete_development_dialog"
+            :visible.sync="completeDevelopmentDialogVisible"
+            title="历史订单详情"
+          >
+            <!-- “完成此次营销 / 开发成功”表单 -->
+            <el-form
+              :model="completeDevelopmentFormData"
+              ref="completeDevelopmentFormData"
+              label-width="100px"
+            >
+              <el-form-item label="送货地址" prop="address">
+                <el-input v-model="completeDevelopmentFormData.address"></el-input>
+              </el-form-item>
+
+              <el-upload
+                class="upload-demo"
+                ref="upload"
+                action="https://bigyue.top/api/order/addOrderFromBus"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :file-list="fileList"
+                :limit="1"
+                :data="upData"
+                :on-success="successUpdate"
+                :auto-upload="false"
+                :on-exceed="handleExceed"
+              >
+                <el-button slot="trigger" type="primary">选取文件</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传pdf文件，且不超过10M</div>
+              </el-upload>
+
+              <!-- <el-form-item label="状态" prop="situation">
+                <el-input v-model="completeDevelopmentFormData.state" :disabled="true"></el-input>
+              </el-form-item>-->
+            </el-form>
+
+            <el-divider />
+
+            <!-- “订单详情”中商品信息表格 -->
+            <el-button
+              round
+              type="info"
+              style="margin-bottom: 10px;margin-top: -10px;margin-left: -820px;"
+              @click="addProduct"
+            >添加商品</el-button>
+            <el-table
+              ref="products"
+              :data="completeDevelopmentFormData.products"
+              highlight-current-row
+              stripe
+              border
+              style="width: 100%"
+            >
+              <el-table-column type="index" label="序号" align="center"></el-table-column>
+
+              <el-table-column label="商品名称" align="center">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.name" :placeholder="scope.row.name"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="数量" align="center">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.number" :placeholder="scope.row.number"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="地区" align="center">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.address" :placeholder="scope.row.address"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="单位" align="center">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.unit" :placeholder="scope.row.unit"></el-input>
+                </template>
+              </el-table-column>
+
+              <el-table-column label="单价（元）" align="center">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.unitPrice" :placeholder="scope.row.unitPrice"></el-input>
+                </template>
+              </el-table-column>
+
+              <!-- <el-table-column property="price" label="金额（元）" align="center"></el-table-column> -->
+            </el-table>
+            <el-divider></el-divider>
+            <div style="margin-bottom: 20px;">
+              <span style="margin-left: 600px;">已选中商品：</span>
+              <span style="margin-left: 5px;color: red;">{{len}}</span>
+              <span style="margin-left: 5px;">种</span>
+              <span style="margin-left: 15px;">总金额：</span>
+              <el-input v-model="totalMoney" style="width: 80px;margin-left: 0px;" disabled></el-input>
+              <span style="margin-left: 5px;">元</span>
+            </div>
+            <el-button
+              style="margin-left: 630px;"
+              type="primary"
+              @click="submitUpload"
+              :disabled="uploadCheck"
+            >确定</el-button>
+            <el-button type="info" @click="complete">取消</el-button>
+          </el-dialog>
         </el-row>
       </el-form>
     </el-row>
@@ -240,6 +347,29 @@ import customerApi from "@/api/customer";
 export default {
   data() {
     return {
+      //完成此次营销 / 开发成功 弹框
+      completeDevelopmentDialogVisible: false,
+      completeDevelopmentFormData: {
+        address: "",
+        customerId: 0,
+        state: 0,
+        busId: 0,
+        products: [
+          {
+            name: "",
+            number: 0,
+            address: "",
+            unit: "",
+            unitPrice: 0
+          }
+        ]
+      },
+      // totalMoney: "30",
+      //上传
+      fileList: [],
+      uploadCheck: false,
+      // 弹出框内的商品信息表格
+
       // 查询类型
       selectKey: {
         type: "",
@@ -320,22 +450,131 @@ export default {
     if (this.$route.params.id != -1) {
       customerApi.querySale_oppById(this.$route.params.id).then(Response => {
         this.marketingOpportunityInfo = Response.data;
+        //完成此次营销地弹框里的内容
+        this.completeDevelopmentFormData.customerId = this.marketingOpportunityInfo.customerId;
+        this.completeDevelopmentFormData.busId = this.marketingOpportunityInfo.id;
+        console.log(this.marketingOpportunityInfo);
       });
     } else {
       this.marketingOpportunityInfo = {};
     }
   },
+  computed: {
+    upData: function() {
+      return {
+        orderBo: JSON.stringify(this.completeDevelopmentFormData)
+      };
+    },
+    len: function() {
+      return this.completeDevelopmentFormData.products.length;
+    },
+    totalMoney: function() {
+      var total = 0;
+      for (
+        var i = 0;
+        i < this.completeDevelopmentFormData.products.length;
+        i++
+      ) {
+        var item = this.completeDevelopmentFormData.products[i];
+        console.log("item.unitPrice",item.unitPrice)
+        console.log("item.number",item.number)
+        // total = Number(item.unitPrice) + Number(item.number);
+      }
+      console.log("total",total)
+      return total;
+    }
+  },
 
   methods: {
+    //关于上传地操作
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 1 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      );
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`);
+    },
+    successUpdate() {
+      this.upload = !this.upload;
+    },
+    //手动上传
+    submitUpload() {
+      // marketingOpportunityInfo.id marketingOpportunityInfo.customerId
+      console.log("点击手动上传", this.completeDevelopmentFormData);
+      this.$refs.upload.submit();
+      this.completeDevelopmentDialogVisible = false;
+    },
+    // 添加商品
+    addProduct() {
+      this.completeDevelopmentFormData.products.push({
+        name: "",
+        number: 0,
+        address: "",
+        unit: "",
+        unitPrice: 0
+      });
+    },
     // 查询框-------------------------------------------------------
     selectByPrimaryKey(selectKey) {
       console.log(selectKey);
     },
 
     // 表单----------------------------------------------------------
-    // 提交表单点击事件
+    // 打开此次营销 / 开发成功
     completeDevelopment() {
-      //修改此次营销机会的状态
+      //修改弹出框的状态
+      this.completeDevelopmentDialogVisible = true;
+    },
+    // 关闭此次营销 / 开发成功
+    closeCompleteForm() {
+      this.completeDevelopmentDialogVisible = false;
+      this.fileList = [];
+      this.uploadCheck = false;
+      this.completeDevelopmentFormData = {
+        address: "",
+        customerId: 0,
+        state: 0,
+        busId: 0,
+        products: [
+          {
+            name: "",
+            number: 0,
+            address: "",
+            unit: "",
+            unitPrice: 0
+          }
+        ]
+      };
+    },
+    // 完成弹出框表单
+    complete() {
+      this.completeDevelopmentDialogVisible = false;
+      this.fileList = [];
+      this.uploadCheck = false;
+      this.completeDevelopmentFormData = {
+        address: "",
+        customerId: 0,
+        state: 0,
+        busId: 0,
+        products: [
+          {
+            name: "",
+            number: 0,
+            address: "",
+            unit: "",
+            unitPrice: 0
+          }
+        ]
+      };
     },
 
     // 表格---------------------------------------------------------
