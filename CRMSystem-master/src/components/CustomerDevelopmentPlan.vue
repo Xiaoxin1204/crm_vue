@@ -264,7 +264,7 @@
 
           <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-          <el-table-column property="number" label="编号" align="center"></el-table-column>
+         <!-- <el-table-column property="number" label="编号" align="center"></el-table-column>-->
 
           <el-table-column property="date" label="日期" align="center"></el-table-column>
 
@@ -382,38 +382,32 @@ export default {
       //表格内容
       customerDevelopmentPlanListData: [
         {
-          number: "21321414",
-          date: "2019-10-18",
-          plan: "与客户面谈1",
-          situation: "双方交换意见并达成合作"
+          date: "2019-12-5",
+          plan: "与客户面谈",
+          situation: "双方签署合同"
         },
         {
-          number: "21321414",
-          date: "2019-10-18",
-          plan: "与客户面谈2",
-          situation: "双方交换意见并达成合作"
-        },
-        {
-          number: "21321414",
-          date: "2019-10-18",
-          plan: "与客户面谈3",
-          situation: "双方交换意见并达成合作"
-        },
-        {
-          number: "21321414",
-          date: "2019-10-18",
+          date: "2019-11-28",
           plan: "与客户面谈",
           situation: "双方交换意见并达成合作"
         },
         {
-          number: "21321414",
-          date: "2019-10-18",
+          date: "2019-11-27",
           plan: "与客户面谈",
           situation: "双方交换意见并达成合作"
         },
         {
-          number: "21321414",
-          date: "2019-10-18",
+          date: "2019-11-22",
+          plan: "与客户面谈",
+          situation: "双方交换意见并达成合作"
+        },
+        {
+          date: "2019-11-18",
+          plan: "与客户面谈",
+          situation: "双方交换意见并达成合作"
+        },
+        {
+          date: "2019-11-17",
           plan: "与客户面谈",
           situation: "双方交换意见并达成合作"
         }

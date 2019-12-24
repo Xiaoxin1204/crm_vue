@@ -163,44 +163,44 @@ export default {
       // “客户服务信息”列表数据
       serviceListData: [
         {
-          number: "134234",
-          name: "太阳药业",
+          number: "123456",
+          name: "阿里巴巴",
           digest: "询问订单价格",
           type: "咨询",
-          creator: "小明",
-          createTime: "2017-2-23"
+          creator: "小新",
+          createTime: "2019-12-15"
+        },
+        {
+          number: "123452",
+          name: "旺仔",
+          digest: "关于商品质量",
+          type: "投诉",
+          creator: "小新",
+          createTime: "2019-12-15"
+        },
+        {
+          number: "123458",
+          name: "万达集团",
+          digest: "询问订单价格",
+          type: "咨询",
+          creator: "小新",
+          createTime: "2019-12-15"
+        },
+        {
+          number: "123454",
+          name: "格雅酒店",
+          digest: "询问订单价格",
+          type: "咨询",
+          creator: "小新",
+          createTime: "2019-12-15"
         },
         {
           number: "134234",
-          name: "太阳药业",
+          name: "甜蜜蜜",
           digest: "询问订单价格",
           type: "咨询",
-          creator: "小明",
-          createTime: "2017-2-23"
-        },
-        {
-          number: "134234",
-          name: "太阳药业",
-          digest: "询问订单价格",
-          type: "咨询",
-          creator: "小明",
-          createTime: "2017-2-23"
-        },
-        {
-          number: "134234",
-          name: "太阳药业",
-          digest: "询问订单价格",
-          type: "咨询",
-          creator: "小明",
-          createTime: "2017-2-23"
-        },
-        {
-          number: "134234",
-          name: "太阳药业",
-          digest: "询问订单价格",
-          type: "咨询",
-          creator: "小明",
-          createTime: "2017-2-23"
+          creator: "小新",
+          createTime: "2019-12-15"
         }
       ]
     };

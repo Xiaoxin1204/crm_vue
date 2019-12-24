@@ -69,7 +69,7 @@ export default {
       },
 
       productListData: [
-        {
+       /* {
           name: "幸福牌电视机",
           warehouse: "天津-恒远电子库",
           location: "EC-D2",
@@ -101,9 +101,55 @@ export default {
           name: "幸福牌电视机",
           warehouse: "天津-恒远电子库",
           location: "EC-D2",
+          amount: 128,
+          remark: "代生产"
+        }*/
+        {
+
+          name: "大肥玥手机",
+         warehouse: "浙江-杭州库",
+         location: "EC-D2",
+
+          amount: 128,
+          remark: "代生产"
+        },
+        {
+
+          name: "沐浴露",
+         warehouse: "浙江-杭州库",
+         location: "EC-D2",
+          unit: "瓶",
+          amount: 128,
+          remark: "代生产"
+        },
+        {
+
+          name: "面霜",
+         warehouse: "浙江-杭州库",
+         location: "EC-D2",
+          unit: "瓶",
+          amount: 128,
+          remark: "代生产"
+        },
+        {
+
+          name: "工装裤",
+         warehouse: "浙江-杭州库",
+         location: "EC-D2",
+          unit: "件",
+          amount: 128,
+          remark: "代生产"
+        },
+        {
+
+          name: "毛衣",
+         warehouse: "浙江-杭州库",
+         location: "EC-D2",
+          unit: "件",
           amount: 128,
           remark: "代生产"
         }
+
       ]
     };
   },

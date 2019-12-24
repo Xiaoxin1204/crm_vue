@@ -83,7 +83,7 @@
 
           <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-          <el-table-column property="number" label="编号" align="center"></el-table-column>
+          <!--<el-table-column property="number" label="编号" align="center"></el-table-column>-->
 
           <el-table-column property="type" label="类别" align="center"></el-table-column>
 
@@ -152,36 +152,36 @@ export default {
         {
           number: "423424",
           type: "企业客户等级",
-          title: "普通客户",
+          title: "S",
           value: "1",
           isEditable: "是"
         },
         {
           number: "423424",
           type: "企业客户等级",
-          title: "普通客户",
-          value: "1",
+          title: "A",
+          value: "2",
           isEditable: "是"
         },
         {
           number: "423424",
           type: "企业客户等级",
-          title: "普通客户",
-          value: "1",
+          title: "B",
+          value: "3",
           isEditable: "是"
         },
         {
           number: "423424",
           type: "企业客户等级",
-          title: "普通客户",
-          value: "1",
+          title: "C",
+          value: "4",
           isEditable: "是"
         },
         {
           number: "423424",
           type: "企业客户等级",
-          title: "普通客户",
-          value: "1",
+          title: "D",
+          value: "5",
           isEditable: "是"
         }
       ],

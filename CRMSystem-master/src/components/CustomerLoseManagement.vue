@@ -46,7 +46,7 @@
 
           <el-table-column property="number" label="客户编号" align="center"></el-table-column>
 
-          <el-table-column property="manager" label="客户经理" align="center"></el-table-column>
+          <el-table-column property="manager" label="销售代表" align="center"></el-table-column>
 
           <el-table-column property="lastOrdDate" label="上次下单时间" align="center"></el-table-column>
 
@@ -172,8 +172,8 @@ export default {
       customerLoseListData: [
         {
           number: "1124142",
-          manager: "赵经理",
-          lastOrdDate: "2018-10-2",
+          manager: "小新",
+          lastOrdDate: "2019-10-2",
           confirmLoseDate: "/",
           tag: "暂缓流失",
           postponeLoseInfo: "",
@@ -181,8 +181,8 @@ export default {
         },
         {
           number: "1124142",
-          manager: "赵经理",
-          lastOrdDate: "2018-10-2",
+          manager: "小新",
+          lastOrdDate: "2019-10-2",
           confirmLoseDate: "/",
           tag: "暂缓流失",
           postponeLoseInfo: "",
@@ -190,17 +190,17 @@ export default {
         },
         {
           number: "1124142",
-          manager: "赵经理",
-          lastOrdDate: "2018-10-2",
-          confirmLoseDate: "/",
+          manager: "小新",
+          lastOrdDate: "2019-10-2",
+          confirmLoseDate: "2019-12-2",
           tag: "确认流失",
           postponeLoseInfo: "",
           confirmLoseInfo: ""
         },
         {
           number: "1124142",
-          manager: "赵经理",
-          lastOrdDate: "2018-10-2",
+          manager: "小新",
+          lastOrdDate: "2019-10-2",
           confirmLoseDate: "/",
           tag: "暂缓流失",
           postponeLoseInfo: "",
@@ -208,9 +208,9 @@ export default {
         },
         {
           number: "1124142",
-          manager: "赵经理",
-          lastOrdDate: "2018-10-2",
-          confirmLoseDate: "/",
+          manager: "小新",
+          lastOrdDate: "2019-10-2",
+          confirmLoseDate: "2019-12-2",
           tag: "确认流失",
           postponeLoseInfo: "",
           confirmLoseInfo: ""

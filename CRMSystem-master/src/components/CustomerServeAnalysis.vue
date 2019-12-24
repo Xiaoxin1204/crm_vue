@@ -61,7 +61,7 @@
         >
           <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-          <el-table-column property="number" label="客户编号" align="center"></el-table-column>
+       <!--   <el-table-column property="number" label="客户编号" align="center"></el-table-column>-->
 
           <el-table-column property="item" label="条目" align="center"></el-table-column>
 
@@ -86,17 +86,17 @@ export default {
         {
           number: "1",
           item: "建议",
-          amount: 24
+          amount: 23
         },
         {
           number: "2",
           item: "咨询",
-          amount: 24
+          amount: 37
         },
         {
           number: "3",
           item: "投诉",
-          amount: 24
+          amount: 40
         }
       ]
     };
@@ -119,7 +119,7 @@ export default {
           trigger: "axis"
         },
         legend: {
-          data: ["邮件营销", "联盟广告", "视频广告", "直接访问", "搜索引擎"]
+          data: ["建议", "咨询", "投诉"]
         },
         grid: {
           left: "3%",
@@ -142,34 +142,22 @@ export default {
         },
         series: [
           {
-            name: "邮件营销",
+            name: "建议",
             type: "line",
             stack: "总量",
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: [4, 3, 2, 5, 2, 2, 5]
           },
           {
-            name: "联盟广告",
+            name: "咨询",
             type: "line",
             stack: "总量",
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: [4, 2, 5, 5, 3, 8, 10]
           },
           {
-            name: "视频广告",
+            name: "投诉",
             type: "line",
             stack: "总量",
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: "直接访问",
-            type: "line",
-            stack: "总量",
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: "搜索引擎",
-            type: "line",
-            stack: "总量",
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: [6, 8, 4, 5, 6, 4, 7]
           }
         ]
       });

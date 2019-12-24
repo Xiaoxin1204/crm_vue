@@ -44,7 +44,7 @@
         >
           <el-table-column type="index" label="序号" align="center"></el-table-column>
 
-          <el-table-column property="number" label="编号" align="center"></el-table-column>
+        <!--  <el-table-column property="number" label="编号" align="center"></el-table-column>-->
 
           <el-table-column property="name" label="名称" align="center"></el-table-column>
 
@@ -76,7 +76,7 @@ export default {
       productListData: [
         {
           number: "425252",
-          name: "幸福牌电视机",
+          name: "大肥玥手机",
           type: "818FFT",
           rank: "2388EA03",
           unit: "台",
@@ -85,37 +85,37 @@ export default {
         },
         {
           number: "425252",
-          name: "幸福牌电视机",
+          name: "沐浴露",
           type: "818FFT",
           rank: "2388EA03",
-          unit: "台",
+          unit: "瓶",
           unitPrice: 7500,
           remark: "代生产"
         },
         {
           number: "425252",
-          name: "幸福牌电视机",
+          name: "面霜",
           type: "818FFT",
           rank: "2388EA03",
-          unit: "台",
+          unit: "瓶",
           unitPrice: 7500,
           remark: "代生产"
         },
         {
           number: "425252",
-          name: "幸福牌电视机",
+          name: "工装裤",
           type: "818FFT",
           rank: "2388EA03",
-          unit: "台",
+          unit: "件",
           unitPrice: 7500,
           remark: "代生产"
         },
         {
           number: "425252",
-          name: "幸福牌电视机",
+          name: "毛衣",
           type: "818FFT",
           rank: "2388EA03",
-          unit: "台",
+          unit: "件",
           unitPrice: 7500,
           remark: "代生产"
         }

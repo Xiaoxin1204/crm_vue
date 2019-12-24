@@ -49,7 +49,7 @@
 
           <el-table-column property="name" label="客户" align="center"></el-table-column>
 
-          <el-table-column property="manager" label="客户经理" align="center"></el-table-column>
+          <el-table-column property="manager" label="销售代表" align="center"></el-table-column>
 
           <el-table-column property="reason" label="流失原因" align="center"></el-table-column>
         </el-table>
@@ -72,37 +72,37 @@ export default {
       customerLoseAnalysisListData: [
         {
           number: "134234",
-          year: "2017",
+          year: "2019",
           name: "太阳药业",
-          manager: "小明",
+          manager: "小新",
           reason: "发现更廉价的商品来源"
         },
         {
-          number: "134234",
-          year: "2017",
-          name: "太阳药业",
-          manager: "小明",
+          number: "134237",
+          year: "2019",
+          name: "京东",
+          manager: "小新",
           reason: "发现更廉价的商品来源"
         },
         {
-          number: "134234",
-          year: "2017",
-          name: "太阳药业",
-          manager: "小明",
+          number: "134238",
+          year: "2019",
+          name: "大肥玥",
+          manager: "小新",
           reason: "发现更廉价的商品来源"
         },
         {
-          number: "134234",
-          year: "2017",
-          name: "太阳药业",
-          manager: "小明",
+          number: "132546",
+          year: "2019",
+          name: "苏宁",
+          manager: "小新",
           reason: "发现更廉价的商品来源"
         },
         {
-          number: "134234",
-          year: "2017",
-          name: "太阳药业",
-          manager: "小明",
+          number: "194944",
+          year: "2019",
+          name: "甜蜜蜜",
+          manager: "小新",
           reason: "发现更廉价的商品来源"
         }
       ]

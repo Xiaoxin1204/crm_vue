@@ -7,11 +7,11 @@
           <el-col :span="6">
             <el-form-item label="选择客户等级">
               <el-select v-model="selectKey.rank" style="width:100%">
-                <el-option label="战略合作伙伴" value="战略合作伙伴"></el-option>
-                <el-option label="合作伙伴" value="合作伙伴"></el-option>
-                <el-option label="大客户" value="大客户"></el-option>
-                <el-option label="重点开发客户" value="重点开发客户"></el-option>
-                <el-option label="普通客户" value="普通客户"></el-option>
+                <el-option label="S" value="S"></el-option>
+                <el-option label="A" value="A"></el-option>
+                <el-option label="B" value="B"></el-option>
+                <el-option label="C" value="C"></el-option>
+                <el-option label="D" value="D"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -53,8 +53,8 @@
           style="width: 100%"
         >
           <el-table-column type="index" label="序号" align="center"></el-table-column>
-
-          <el-table-column property="number" label="编号" align="center"></el-table-column>
+<!--
+          <el-table-column property="number" label="编号" align="center"></el-table-column>-->
 
           <el-table-column property="rank" label="等级" align="center"></el-table-column>
 
@@ -78,28 +78,28 @@ export default {
       customerConstructAnalysisListData: [
         {
           number: "1",
-          rank: "战略合作伙伴",
-          amount: "532"
+          rank: "S",
+          amount: "15"
         },
         {
           number: "2",
-          rank: "合作伙伴",
-          amount: "241"
+          rank: "A",
+          amount: "14"
         },
         {
           number: "3",
-          rank: "大客户",
-          amount: "124"
+          rank: "B",
+          amount: "17"
         },
         {
           number: "4",
-          rank: "重点开发客户",
-          amount: "423"
+          rank: "C",
+          amount: "21"
         },
         {
           number: "5",
-          rank: "普通客户",
-          amount: "252"
+          rank: "D",
+          amount: "25"
         }
       ]
     };
@@ -128,7 +128,7 @@ export default {
         }
     },
     legend: {
-        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+        data:['S','A','B','C','D']
     },
     toolbox: {
         feature: {
@@ -155,35 +155,35 @@ export default {
     ],
     series : [
         {
-            name:'邮件营销',
+            name:'S',
             type:'line',
             stack: '总量',
             areaStyle: {},
-            data:[120, 132, 101, 134, 90, 230, 210]
+            data:[2, 2, 3, 2, 1, 2, 2]
         },
         {
-            name:'联盟广告',
+            name:'A',
             type:'line',
             stack: '总量',
             areaStyle: {},
-            data:[220, 182, 191, 234, 290, 330, 310]
+            data:[2, 2, 4, 5, 2, 6, 3]
         },
         {
-            name:'视频广告',
+            name:'B',
             type:'line',
             stack: '总量',
             areaStyle: {},
-            data:[150, 232, 201, 154, 190, 330, 410]
+            data:[5, 4, 6, 8, 5, 5, 2]
         },
         {
-            name:'直接访问',
+            name:'C',
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},
-            data:[320, 332, 301, 334, 390, 330, 320]
+            data:[5, 4, 2, 4, 5, 2, 4]
         },
         {
-            name:'搜索引擎',
+            name:'D',
             type:'line',
             stack: '总量',
             label: {
@@ -193,7 +193,7 @@ export default {
                 }
             },
             areaStyle: {normal: {}},
-            data:[820, 932, 901, 934, 1290, 1330, 1320]
+            data:[5, 4, 5, 6, 4, 5, 2]
         }
     ]
       });

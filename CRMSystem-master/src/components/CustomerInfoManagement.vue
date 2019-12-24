@@ -360,7 +360,7 @@
 
                 <el-table-column property="address" label="送货地址" align="center"></el-table-column>
 
-                <el-table-column property="state" label="状态" align="center"></el-table-column>
+               <!-- <el-table-column property="state" label="状态"  align="center"></el-table-column>-->
 
                 <el-table-column label="查看详情" align="center">
                   <template>
@@ -1064,7 +1064,10 @@ export default {
         this.historyOrderDetailsFormData.serialNumber =
           Response.data.serialNumber;
         this.historyOrderDetailsFormData.createTime = Response.data.createTime;
-        this.historyOrderDetailsFormData.state = Response.data.state;
+        if (Response.data.state == 0) {
+          Response.data.state ="未回款";
+          this.historyOrderDetailsFormData.state = Response.data.state;
+        }
         this.historyOrderDetailsFormData.address = Response.data.address;
         this.historyOrderCommodityListData = Response.data.products;
       });

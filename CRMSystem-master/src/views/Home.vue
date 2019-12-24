@@ -30,13 +30,13 @@
             <el-row style="height:40px">
               <div
                 style="font-size:15px; font-weight: bold; text-align:left; color:#000000; margin:10px 0px 0px 3px"
-              >蔡徐坤</div>
+              >李建新</div>
             </el-row>
 
             <el-row style="height:30px">
               <div
                 style="font-size:12px; text-align:left; color:#303133; margin:0px 0px 0px 3px"
-              >超级管理员</div>
+              >销售代表</div>
             </el-row>
           </el-col>
         </el-row>
@@ -46,7 +46,7 @@
           <!-- 控制台 -->
           <el-menu-item index="/Home/Console">
             <i class="el-icon-help"></i>
-            <span slot="title">控制中心</span>
+            <span slot="title">用户首页</span>
           </el-menu-item>
 
           <!-- 营销管理 -->
@@ -146,7 +146,7 @@ export default {
   data() {
     return {
       logoUrl: require("../assets/logoPic.jpg"),
-      circleUrl: require("../assets/circlePic.jpg"),
+      circleUrl: require("../assets/12.jpg"),
       activeIndex: '/Home/Console',
     };
   },

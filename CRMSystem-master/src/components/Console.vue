@@ -15,7 +15,7 @@
                     <el-avatar :size="size" :src="totalCustomerAmountPicUrl"></el-avatar>
                   </el-col>
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">7</div>
                     <div class="card-content-text">总客户量</div>
                   </el-col>
                 </el-row>
@@ -31,7 +31,7 @@
                   </el-col>
 
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">5</div>
                     <div class="card-content-text">客户流失量</div>
                   </el-col>
                 </el-row>
@@ -47,7 +47,7 @@
                   </el-col>
 
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">5</div>
                     <div class="card-content-text">新订单</div>
                   </el-col>
                 </el-row>
@@ -66,7 +66,7 @@
                   </el-col>
 
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">7</div>
                     <div class="card-content-text">客户开发量</div>
                   </el-col>
                 </el-row>
@@ -82,7 +82,7 @@
                   </el-col>
 
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">10</div>
                     <div class="card-content-text">服务反馈量</div>
                   </el-col>
                 </el-row>
@@ -98,7 +98,7 @@
                   </el-col>
 
                   <el-col :span="14">
-                    <div class="card-content-text-title">254</div>
+                    <div class="card-content-text-title">5</div>
                     <div class="card-content-text">商品总数</div>
                   </el-col>
                 </el-row>
@@ -147,7 +147,7 @@
 
               <el-table-column property="name" label="客户名称" align="center"></el-table-column>
 
-              <el-table-column property="sale" label="交易金额(万元)" align="center"></el-table-column>
+              <el-table-column property="sale" label="交易金额(千元)" align="center"></el-table-column>
             </el-table>
           </el-card>
         </el-row>
@@ -203,54 +203,34 @@ export default {
       // 表格数据
       topSaleCustomerListData: [
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "123456",
+          name: "阿里巴巴",
+          sale: 700
         },
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "55b2dc",
+          name: "甜蜜蜜",
+          sale: 625
         },
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "437a37",
+          name: "大肥玥集团",
+          sale:600
         },
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "06a2e2",
+          name: "天上人间",
+          sale: 577
         },
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "bfbbad",
+          name: "格雅酒店",
+          sale: 565
         },
         {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
-        },
-        {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
-        },
-        {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
-        },
-        {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
-        },
-        {
-          number: "34234",
-          name: "汉东省京州市大风厂",
-          sale: 888.88
+          number: "123451",
+          name: "大肥玥",
+          sale: 560
         }
       ]
     };
@@ -266,11 +246,11 @@ export default {
       // 绘制图表
       barChart.setOption({
         title: {
-          text: "本周畅销前十商品统计（万件）"
+          text: "本周畅销前十商品统计（千件）"
         },
         tooltip: {},
         xAxis: {
-          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子", "大衣", "羽绒服", "运动鞋", "工装裤"]
+          data: ["沐浴露", "洗发水", "洗面奶", "毛巾", "牙刷", "面霜", "大衣", "羽绒服", "运动鞋", "工装裤"]
         },
         yAxis: {},
         series: [
@@ -300,7 +280,7 @@ export default {
         },
         series: [
           {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: [1, 2, 7, 3, 4, 6, 5],
             type: "line"
           }
         ]
